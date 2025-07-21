@@ -1,0 +1,81 @@
+PUT http://localhost:8080/lineBot/initSuport
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/exitSuport
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+POST http://localhost:8080/Product/new
+Content-Type: application/json
+
+{ 
+  "data": {
+    "name": "Kit Berço linho",
+    "price": 115000,
+    "description": "Kit personalizável, contêm 9 itens.",
+    "isActive": true,
+    "category": "64b2c55a1f8b9f24d7a8f0ab",
+    "compDescription": "Confeccionado em linho natural, este kit proporciona um toque leve, sofisticado e de alta respirabilidade. Ideal para quem busca um visual clássico e elegante no enxoval do bebê. O valor informado refere-se à composição padrão, podendo sofrer alterações conforme itens forem adicionados ou removidos do kit.",
+    "img": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wgARCAZABLADASIAAhEBAxEB/8QAGgAAAwEBAQEAAAAAAAAAAAAAAAECAwQFBv/EABcBAQEBAQAAAAAAAAAAAAAA"
+  }
+}
+
+####
+
+GET http://localhost:8080/Product/allSalableActive
+
+###
+PUT http://localhost:8080/LineBot/allProducts
+
+###
+PUT http://localhost:8080/LineBot/allProducts
+
+###
+
+PUT http://localhost:8080/lineBot/selectProduct
+Content-Type: application/json
+
+{
+  "id": "6878ff2b9337af0e27cbe33f",
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/addToOrcamento
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/resumoOrcamento
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
