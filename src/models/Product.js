@@ -94,7 +94,7 @@ ProductSchema.methods.calculatePrice = async function() {
     return this.price;
 }
 
-ProductSchema.methods.detail = async function (params) {
+ProductSchema.methods.detail = async function() {
     let msg = `Produto: ${this.name}\n`;
     msg += `Preço: R$ ${this.price.toFixed(2)}\n`;
 

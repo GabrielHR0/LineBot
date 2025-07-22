@@ -2,16 +2,34 @@ const Client = require('../models/Client');
 
 class ClientController {
 
-    async pushOrcamento(clientId, orcamentoId){
-        const client = await Client.findOne(clientId);
-        client.addOrcamento(orcamentoId);
+    async pushOrcamento(_id, orcamentoId){
+          await Client.updateOne(
+            { _id },{
+                $addToSet: { orcamentos: orcamentoId }
+            }
+        );
     }
 
-    getLastOrcamento(clientId){
-        const client = Client.findOne(clientId);
-        
+    async findByNumber(number){
+        return await Client.findOne({ number });
     }
-        getLastOrcamento(contactNumber){
+
+    async getLastOrcamento(number){
+        const client = await Client.findOne({number});
+        const orcamento = await client.lastOrcamento();
+        console.log(orcamento);
+        let notification;
+        return {notification, orcamento};
+    }
+
+    async getLastOrcamentoId(number){
+        const client = await Client.findOne({number});
+        const orcamento = await client.lastOrcamentoId();
+        return orcamento;
+    }
+
+
+        getLastOrcamento222(contactNumber){
             const client = this.buscarCliente(contactNumber);
             const orcamento = client.lastOrcamento();
             

@@ -1,3 +1,4 @@
+
 PUT http://localhost:8080/lineBot/initSuport
 Content-Type: application/json
 
@@ -51,7 +52,7 @@ PUT http://localhost:8080/lineBot/selectProduct
 Content-Type: application/json
 
 {
-  "id": "6878ff2b9337af0e27cbe33f",
+  "id": "6877fc47e38f7051ee0f8956",
   "contact" : {
     "number" : "558498332658@c.us",
     "name" : "Gabriel Henrique"
@@ -70,7 +71,41 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/resumoOrcamento
+PUT http://localhost:8080/lineBot/saveOrcamento
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+
+###
+PUT http://localhost:8080/lineBot/ultimoOrcamento
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/editLastOrcamento
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/detailProduct
 Content-Type: application/json
 
 {

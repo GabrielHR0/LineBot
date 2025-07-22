@@ -36,13 +36,27 @@ ClientSchema.methods.lastOrcamento = async function() {
   const clienteComOrcamentos = await this.populate({
     path: 'orcamentos',
     options: { 
-      sort: { createdAt: -1 }, // Ordena do mais recente
+      sort: { createdAt: -1 },
       limit: 1
     }
   });
   return clienteComOrcamentos.orcamentos[0] || null;
 
 };
+
+ClientSchema.methods.lastOrcamentoId = async function() {
+  // Usando aggregation diretamente no modelo
+  const result = await this.model('Client').aggregate([
+    { $match: { _id: this._id } },
+    { $project: {
+      ultimoOrcamento: { $arrayElemAt: ["$orcamentos", -1] }
+    }}
+  ]);
+  
+  return result[0]?.ultimoOrcamento || null;
+
+};
+
 ClientSchema.methods.getName = function () {
     return this.contactInfo?.name || null;
 };

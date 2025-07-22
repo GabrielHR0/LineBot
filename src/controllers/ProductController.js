@@ -43,9 +43,10 @@ class ProductController {
         throw new Error("Produto não encontrado");
     }
 
-    detail(productid){
-        const product = Product.findOne({ _id : productid });
-        return { "@detail: ": product.detail };
+    async detail(productid){
+        const product = await Product.findOne({ _id : productid });
+        const details = await product.detail();
+        return { "@detail: ": details };
     }
 
     async updatePrice(productid, newPrice) {

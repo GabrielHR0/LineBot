@@ -32,14 +32,8 @@ OrcamentoSchema.statics.createOcamento = async function(clientId){
     return await this.create({client : clientId});
 }
 
-OrcamentoSchema.methods.updatePrice = async function() {
-    await this.populate('items.product');
-    
-    this.total = this.items.reduce((total, item) => {
-        const price = item.product?.price || 0;
-        const qty = item.quantity || 0;
-        return total + (price * qty);
-    }, 0); 
+OrcamentoSchema.methods.updatePrice = function(newPrice) {
+    this.total = newPrice;
 };
 
 OrcamentoSchema.methods.getItem = function (itemId, itemType){
@@ -53,8 +47,6 @@ OrcamentoSchema.methods.addItem = async function (itemId, itemType, quantity = 1
 
     if(existingItem){
         existingItem.quantity += quantity;
-        await this.updatePrice()
-        await this.save();
         return existingItem;
     }
 
@@ -63,9 +55,6 @@ OrcamentoSchema.methods.addItem = async function (itemId, itemType, quantity = 1
         product : itemId,
         quantity
     })
-
-    await this.updatePrice()
-    await this.save();
 }
 
 OrcamentoSchema.methods.removeItem = async function (itemId, itemType, quantity = 1){
@@ -82,24 +71,17 @@ OrcamentoSchema.methods.removeItem = async function (itemId, itemType, quantity 
         );
         this.items.splice(itemIndex, 1);
     }
-    await this.updatePrice();
-    await this.save();
 
     return existingItem;
 }
 
-
-
 OrcamentoSchema.methods.resume = async function (){
-    const items = await this.populate('items.product');
-    console.log("Items populados:", items);
-
     return {
         items : this.items.map(item => ({
             name : item.product.name,
             price : item.product.price,
             quantity: item.quantity,
-            description : item.product.description
+            //description : item.product.description
         })),
         total : this.total
     };

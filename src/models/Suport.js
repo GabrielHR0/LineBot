@@ -70,8 +70,8 @@ SuportSchema.methods.setCurrentProduct = function(product){
     }
 }
 
-SuportSchema.methods.setCurrentOrcamento = async function(orcamento){
-    this.currentOrcamento = orcamento;
+SuportSchema.methods.setCurrentOrcamento = async function(orcamentoId){
+    this.currentOrcamento = orcamentoId;
     await this.save();
 }
 

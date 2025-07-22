@@ -66,9 +66,11 @@ router.put('/addToOrcamento', async (req, res) => {
     try{
         if(!suport.currentOrcamento){
             const orcamento = await Orcamento.create(suport.client);
+            console.log("Orcamento encontrado:", orcamento);
             await suport.setCurrentOrcamento(orcamento._id);
             await orcamento.addItem(suport.currentProduct.product, suport.currentProduct.productType);
-            res.status(200).json(orcamento);
+            await Orcamento.updatePrice(orcamento);
+            return res.status(200).json(orcamento);
         }
         const item = await Product.getById(suport.currentProduct.product);
         const orcamento = await Orcamento.addItem(suport.currentOrcamento, item);
@@ -97,8 +99,8 @@ router.put('/removeFromOrcamento', async (req, res) => {
 router.put('/getProductsFromOrcamento', async (req, res) => {
     const { contact } = req.body;
     const suport = await Suport.getSuportByContact(contact.number);
-    const orcamento = await Orcamento.
-    res.send( products )
+    const products = await Orcamento.getItems(suport.currentOrcamento);
+    res.send(products);
 });
 
 // ---------------- ROTA: Mostra resumo do orçamento ----------------
@@ -114,25 +116,31 @@ router.put('/resumoOrcamento', async (req, res) => {
 router.put('/saveOrcamento', async (req, res) => {
     const { contact } = req.body;
     const suport = await Suport.getSuportByContact(contact.number);
-    await Client.pushOrcamento(suport.client, suport.currentOrcamento);
+    const client = await Client.pushOrcamento(suport.client, suport.currentOrcamento);
+    res.status(200).json(client);
 });
 
 // ---------------- ROTA: Define o ultimo orçamento como o atual ----------------
 router.put('/editLastOrcamento', async (req, res) => {
     const { contact } = req.body;
-    
-    Client.getLastOrcamento()
-    const lastOrcamento = client.lastOrcamento();
-    suport.currentOrcamento = lastOrcamento;
+    const client = await Client.findByNumber(contact.number);
+    const orcamento = await client.lastOrcamento();
+    const newOrcamento = await Orcamento.createCopy(orcamento);
+    Suport.setCurrentOrcamento(client.currentSession, newOrcamento._id);
+    res.status(200).json(newOrcamento);
 })
 
 // ---------------- ROTA: Mostra resumo do ultimo orçamento ----------------
 router.put('/ultimoOrcamento', async (req, res) => {
     const { id, contact } = req.body;
-    console.log("[/ultimoOrcamento] Requisição recebida");
-    const resume = bot.getLastOrcamento(contact.number);
-    console.log("Orçamento: ", resume);
-    res.send(resume);
+    try{
+        const result  = await Client.getLastOrcamento(contact.number);
+        const resume = await Orcamento.resume(result.orcamento, result.notification);
+        res.status(200).json(resume);
+    } catch (error) {
+        console.error("[/ultimoOrcamento] Erro ao buscar ultimo orçamento:", error);
+        res.status(500).send({ error: 'Erro interno ao buscar ultimo orçamento.' });
+    }
 });
 
 // ---------------- ROTA: Inicializa customização ----------------
@@ -251,11 +259,8 @@ router.put('/custom/removeSubProduct', async (req, res) => {
 // ---------------- ROTA: Remove subproduto customizado ----------------
 router.put('/detailProduct', async (req, res) => {
     const { id, contact } = req.body;
-    console.log("[/detailProduct] Requisição recebida");
-    console.log("Contato:", contact);
-    console.log("ID do subproduto:", id);
-
-    const detail = bot.detailProduct(contact.number);
+    const suport = await Suport.getSuportByContact(contact.number);
+    const detail = await Product.detail(suport.currentProduct.product);
     console.log("Detalhes do produto: ", detail);
     res.send(detail)
 });

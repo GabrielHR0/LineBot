@@ -48,7 +48,18 @@ class SuportController {
     const suport = await this.getSuportByContact(contact);
     suport.setCurrentProduct(product);
     suport.save();
-  } 
+  }
+
+  async setCurrentOrcamento(sessionId, orcamento){
+    await Suport.findOneAndUpdate(
+      { sessionId },
+      { $set: { currentOrcamento: orcamento } }
+    );
+  }
+  
+  async findBySession(sessionId){
+    return await Suport.findOne({ sessionId });
+  }
 
   async getClientSuport(contactNumber) {
       const client = await Client.findOne({ number: contactNumber });
