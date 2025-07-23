@@ -63,11 +63,13 @@ SuportSchema.statics.new = function (contactNumber, clientId) {
   return suport;
 };
 
-SuportSchema.methods.setCurrentProduct = function(product){
+SuportSchema.methods.setCurrentProduct = async function(product){
     this.currentProduct = {
         product : product._id,
         productType: product.constructor.modelName
     }
+    await this.save();
+
 }
 
 SuportSchema.methods.setCurrentOrcamento = async function(orcamentoId){

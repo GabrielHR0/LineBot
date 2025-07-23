@@ -37,12 +37,12 @@ const CustomProductSchema = mongoose.Schema({
     }]
 }, { timestamps : true })
 
-CustomProductSchema.statics.createCustomProduct = function (product){
-    return this.create({
+CustomProductSchema.statics.factory = async function (product){
+    return await this.create({
         product : product._id,
         name : product.name + ' Customizado',
         subProducts : product.subProducts ? product.subProducts.map(sp => ({
-            subProductId : sp._id || sp.subProductId,
+            subProductId : sp.subProduct || sp._id,
             quantity : sp.quantity || 1
         })) : [],
         price : product.price

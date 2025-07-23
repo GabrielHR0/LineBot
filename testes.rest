@@ -24,21 +24,37 @@ Content-Type: application/json
 POST http://localhost:8080/Product/new
 Content-Type: application/json
 
-{ 
+{
   "data": {
-    "name": "Kit Berço linho",
-    "price": 115000,
-    "description": "Kit personalizável, contêm 9 itens.",
+    "name": "Colcha em Linho",
+    "price": 30000,
+    "description": "Colcha para berço em linho natural.",
     "isActive": true,
     "category": "64b2c55a1f8b9f24d7a8f0ab",
-    "compDescription": "Confeccionado em linho natural, este kit proporciona um toque leve, sofisticado e de alta respirabilidade. Ideal para quem busca um visual clássico e elegante no enxoval do bebê. O valor informado refere-se à composição padrão, podendo sofrer alterações conforme itens forem adicionados ou removidos do kit.",
-    "img": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wgARCAZABLADASIAAhEBAxEB/8QAGgAAAwEBAQEAAAAAAAAAAAAAAAECAwQFBv/EABcBAQEBAQAAAAAAAAAAAAAA"
+    "compDescription": "Colcha em linho natural com acabamento impecável, proporcionando conforto térmico e visual sofisticado.",
+    "img": "[base64 image data]"
   }
 }
 
 ####
 
 GET http://localhost:8080/Product/allSalableActive
+
+
+###
+POST http://localhost:8080/SubProduct/new
+Content-Type: application/json
+
+{
+  "productId": "687fe73b9eae629b57efab57",
+  "data": {
+    "parentProduct": "6878ff2b9337af0e27cbe33f",
+    "bundlePrice": 100,
+    "quantity": 2,
+    "isEssential": false
+  }
+}
+
 
 ###
 PUT http://localhost:8080/LineBot/allProducts
@@ -52,7 +68,7 @@ PUT http://localhost:8080/lineBot/selectProduct
 Content-Type: application/json
 
 {
-  "id": "6877fc47e38f7051ee0f8956",
+  "id": "6878ff2b9337af0e27cbe33f",
   "contact" : {
     "number" : "558498332658@c.us",
     "name" : "Gabriel Henrique"
@@ -105,7 +121,18 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/detailProduct
+PUT http://localhost:8080/lineBot/custom/allSubProducts
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/custom/init
 Content-Type: application/json
 
 {

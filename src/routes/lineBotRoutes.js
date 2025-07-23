@@ -145,33 +145,27 @@ router.put('/ultimoOrcamento', async (req, res) => {
 
 // ---------------- ROTA: Inicializa customização ----------------
 router.put('/custom/init', async (req, res) => {
-    const { id, contact } = req.body;
-    console.log("[/custom/init] Requisição recebida");
-    console.log("Contato:", contact);
-    console.log("ID do produto (se houver):", id);
-
-    const CustomProduct = bot.initCustomProduct(contact.number);
-    console.log("Sessão de customização iniciada:", CustomProduct);
-    
-    res.send(CustomProduct);
+    try {
+        const { contact } = req.body;
+        const suport = await Suport.getSuportByContact(contact.number);
+        const product = await Suport.getCurrentProduct(suport);
+        const custom =  await CustomProduct.create(product);
+        await suport.setCurrentProduct(custom);
+        console.log("Sessão de customização iniciada:", custom);
+        res.status(200).json(custom);
+    } catch(error){
+        console.error("[/custom/init] Erro ao criar produto customizável:", error);
+        res.status(500).send({ error: 'Erro interno ao customizar produto.' });
+    }
 });
 
 // ---------------- ROTA: Lista subprodutos de um produto customizado ----------------
 router.put('/custom/allSubProducts', async (req, res) => {
-    const { id, contact } = req.body;
-    console.log("[/custom/allSubProducts] Requisição recebida");
-    console.log("Contato:", contact);
-
-    const suport = bot.getSuportByContact(contact.number);
-    console.log("Sessão ativa:", suport.sessionId);
-    console.log("Produto atual:", suport.currentProduct.detail());
-
-    const subProducts = bot.getAllSubproducts(suport.currentProduct.product._key);
-    console.log("Subprodutos encontrados:", subProducts.map(p => p.name || p));
-
-
-    const produtosFormatados = await bot.sendProductsWithoutQuantity(subProducts);
-    res.send(produtosFormatados);
+    const { contact } = req.body;
+    const suport = await Suport.getSuportByContact(contact.number);
+    const product = await Suport.getCurrentProduct(suport);
+    const result = await CustomProduct.getSubproducts(product._id);
+    res.status(200).json(result);
 });
 
 // ---------------- ROTA: Lista subprodutos de um produto ----------------
@@ -258,7 +252,7 @@ router.put('/custom/removeSubProduct', async (req, res) => {
 
 // ---------------- ROTA: Remove subproduto customizado ----------------
 router.put('/detailProduct', async (req, res) => {
-    const { id, contact } = req.body;
+    const { contact } = req.body;
     const suport = await Suport.getSuportByContact(contact.number);
     const detail = await Product.detail(suport.currentProduct.product);
     console.log("Detalhes do produto: ", detail);

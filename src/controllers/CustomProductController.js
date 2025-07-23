@@ -1,3 +1,4 @@
+const { findOne } = require('../models/Client');
 const CustomProduct = require('../models/CustomProduct');
 
 class CustomProductController {    
@@ -12,9 +13,17 @@ class CustomProductController {
         custom.removeSubProduct(subProductKey);
     }
 
-    create(subProductKey, customProductid){
-        const custom = CustomProduct.findOne(customProductid);
-        custom.createCustomProduct(subProductKey);
+    async getSubproducts(_id){
+        const custom = await CustomProduct.findOne({_id})
+        .populate({
+            path: 'subProducts.subProductId',
+            model: 'SubProduct'
+        });
+        return custom.subProducts;
+    }
+
+    async create(product){
+        return await CustomProduct.factory(product);
     }
 
     async detail(productid){

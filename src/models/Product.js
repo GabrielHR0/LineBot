@@ -32,7 +32,6 @@ const ProductSchema = new mongoose.Schema({
     subProduct : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SubProduct',
-        default: []
     },
     quantity : {
         type: Number,
@@ -65,8 +64,7 @@ ProductSchema.virtual('hasSubproducts').get(function() {
 
 ProductSchema.methods.addSubProduct = function(subProduct){
 
-    if (subProduct?._id){
-        subProduct.setParentProduct(this._id);
+    if (subProduct){
         this.subProducts.push({
             subProduct: subProduct._id,
             quantity: subProduct.quantity || 1

@@ -1,4 +1,4 @@
-const SubProduct  = require('../models/SubProduct');
+const SubProduct = require('../models/SubProduct');
 
 class SubProductController {
 
@@ -27,19 +27,17 @@ class SubProductController {
         return exchangeables;
     }
 
-    async create(data){
+    async factory(product, data){
 
-        const sp = await SubProduct.create({
-            name : data.name,
+        return await SubProduct.create({
+            name : product.name,
+            product: product._id,
+            category: product.category,
             parentProduct: data.parentProduct,
-            product: data.product,
-            category: data.category,
             bundlePrice: data.bundlePrice,
             quantity: data.quantity || 1,
             isEssential: data.isEssential || false
         })
-        
-        return sp;
     }
 
 }

@@ -47,7 +47,6 @@ class SuportController {
   async setCurrentProduct(contact, product){
     const suport = await this.getSuportByContact(contact);
     suport.setCurrentProduct(product);
-    suport.save();
   }
 
   async setCurrentOrcamento(sessionId, orcamento){
@@ -76,6 +75,14 @@ class SuportController {
       return foundSuport;
     }
     return null;
+  }
+
+  async getCurrentProduct(suport){
+    await suport.populate({
+      path: 'currentProduct.product',
+      model: suport.currentProduct.productType
+    })
+    return suport.currentProduct.product;
   }
 
 }
