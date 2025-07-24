@@ -9,29 +9,29 @@ que possui um protocolo próprio de comunicação e,
 utiliza a biblioteca whatsapp-web.js.
 
  Funcionalidades
-    LineBot
-        Cadastro de produtos e subprodutos (ex: um Kit Berço é composto por travesseiro, lençol, etc.)
+        LineBot
+            Cadastro de produtos e subprodutos (ex: um Kit Berço é composto por travesseiro, lençol, etc.)
 
-        Gerencia orçamentos e pedidos de clientes, permitindo que o cliente faça alterações nos produtos 
-        e no orçamento antes de finalizar um pedido. (Um orçamento atua como um carrinho de compras);
+            Gerencia orçamentos e pedidos de clientes, permitindo que o cliente faça alterações nos produtos 
+            e no orçamento antes de finalizar um pedido. (Um orçamento atua como um carrinho de compras);
 
-        Troca dados com o whatBot para seguir um fluxo de atendimento dinâmico baseado nas escolhas do cliente.
+            Troca dados com o whatBot para seguir um fluxo de atendimento dinâmico baseado nas escolhas do cliente.
 
 
-    WhatBot
-        Conexão direta com o WhatsApp usando whatsapp-web.js
+        WhatBot
+            Conexão direta com o WhatsApp usando whatsapp-web.js
 
-        Gerenciamento de fluxo lógico de atendimento baseado em um arquivo page.json
+            Gerenciamento de fluxo lógico de atendimento baseado em um arquivo page.json
 
-        Suporte a múltiplos caminhos de decisão com base nas escolhas do cliente
+            Suporte a múltiplos caminhos de decisão com base nas escolhas do cliente
 
-        Geração de QR Code para autenticação no whatsapp-web
+            Geração de QR Code para autenticação no whatsapp-web
 
-        Requests no LineBot para gerar mensagens dinâmicas baseadas no retorno
+            Requests no LineBot para gerar mensagens dinâmicas baseadas no retorno
 
 Dependências e middleware:
-    express
-    mongoose
+        express
+        mongoose
 
     desenvolvimento:
         nodemon
@@ -39,17 +39,17 @@ Dependências e middleware:
         morgan
 
 Como executar
-    Instale as dependências:
+        Instale as dependências:
 
-        npm install
-        Execute o servidor em modo desenvolvimento:
+            npm install
+            Execute o servidor em modo desenvolvimento:
 
-        npm run dev
-        Isso executa o arquivo server.js com nodemon.
+            npm run dev
+            Isso executa o arquivo server.js com nodemon.
 
 
 🤝 Contribuição
 Este projeto é educacional e em constante evolução. O protocolo do whatBot foi desenvolvido em conjunto com um professor
 da minha faculdade. Caso também queira contribuir com melhorias sinta-se à vontade para abrir uma issue ou pull request.
-Dicas ou criticas também são bem vindas.
+Dicas ou criticas também são bem-vindas.
 

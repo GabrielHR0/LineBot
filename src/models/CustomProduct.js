@@ -53,7 +53,7 @@ CustomProductSchema.methods.hasSubProducts = function (){
     return Array.isArray(this.subProducts) && this.subProducts.length > 0;
 }
 
-CustomProductSchema.methods.updatePrice = async function() {
+CustomProductSchema.methods.calculatePrice = async function() {
   const populatedProduct = await this.populate('subProducts.subProductId');
   
   this.price = populatedProduct.subProducts.reduce((total, { subProductId, quantity }) => {
@@ -62,18 +62,36 @@ CustomProductSchema.methods.updatePrice = async function() {
 
 };
 
+CustomProductSchema.methods.updatePrice = async function(spPrice) {
+  
+    try {
+    const priceToAdd = Number(spPrice);
+
+    if (isNaN(priceToAdd)) {
+      throw new Error('Valor inválido para atualização de preço');
+    }
+    
+    this.price += priceToAdd;
+    await this.save();
+    return this; 
+  } catch (error) {
+    console.error('Erro ao atualizar preço:', error);
+    throw error;
+  }
+
+};
+
 CustomProductSchema.methods.getSubProduct = function (subProductId){
     return this.subProducts.find(sub => sub.subProductId.equals(subProductId)) ?? null;
 }
 
-CustomProductSchema.methods.addSubProduct = async function (subProduct, customQuantity = null){
+CustomProductSchema.methods.addSubProduct = async function (subProduct, customQuantity = 1){
 
     const existing = this.getSubProduct(subProduct._id);
 
     if(existing){
         existing.quantity += customQuantity || subProduct.quantity;;
         this.addedProducts.push(subProduct._id);
-        await this.updatePrice();
         return;
     }
 
@@ -81,25 +99,14 @@ CustomProductSchema.methods.addSubProduct = async function (subProduct, customQu
         subProductId: subProduct._id,
         quantity: subProduct.quantity
     });
-    await this.updatePrice();
     
+    return this;
 }
 
-CustomProductSchema.methods.removeSubProduct = async function (subProductId){
-    const exists = this.subProducts.some(sub => sub.subProductId.equals(subProductId));
-    
-    if (exists){
-        this.subProducts = this.subProducts.filter(sub => !sub.subProductId.equals(subProductId));
-        this.removedProducts.push(subProductId);
-        await this.updatePrice();
-    }
-}
 
 CustomProductSchema.methods.getDetailedInfo = async function() {
-  // Popula os campos product e subProducts.subProductId
   await this.populate('product').populate('subProducts.subProductId');
 
-  // Chama o método detail (que é síncrono)
   return this.detail();
 };
 

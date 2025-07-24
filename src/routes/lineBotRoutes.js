@@ -9,7 +9,7 @@ const SubProduct = require('../controllers/SubProductController');
 const Suport = require('../controllers/SuportController');
 const lineBot = require('../controllers/LineBotController');
 const SuportController = require('../controllers/SuportController');
-
+const LineBotController = require('../controllers/LineBotController');
 
 
 
@@ -45,12 +45,8 @@ router.put('/allProducts', async (req, res) => {
 // ---------------- ROTA: Seleciona um produto ----------------
 router.put('/selectProduct', async (req, res) => {
     const { id, contact } = req.body;
-    console.log("[/selectProduct] Produto selecionado:", id);
-    console.log("[/selectProduct] Contato recebido:", contact);
-
     try {
         const product = await Product.getById(id);
-        console.log("[/selectProduct] Product encontrado:", product);
         await Suport.setCurrentProduct(contact.number, product);
         res.status(200).json(product);
     } catch (error) {
@@ -100,7 +96,8 @@ router.put('/getProductsFromOrcamento', async (req, res) => {
     const { contact } = req.body;
     const suport = await Suport.getSuportByContact(contact.number);
     const products = await Orcamento.getItems(suport.currentOrcamento);
-    res.send(products);
+    const formatedProducts = await lineBot.sendProductsWithQuantity(products);
+    res.send(formatedProducts);
 });
 
 // ---------------- ROTA: Mostra resumo do orçamento ----------------
@@ -135,6 +132,9 @@ router.put('/ultimoOrcamento', async (req, res) => {
     const { id, contact } = req.body;
     try{
         const result  = await Client.getLastOrcamento(contact.number);
+        if (!result.orcamento){
+            res.status(200).json({"@resumo": "", "@notification" : result.notification});
+        }
         const resume = await Orcamento.resume(result.orcamento, result.notification);
         res.status(200).json(resume);
     } catch (error) {
@@ -165,51 +165,45 @@ router.put('/custom/allSubProducts', async (req, res) => {
     const suport = await Suport.getSuportByContact(contact.number);
     const product = await Suport.getCurrentProduct(suport);
     const result = await CustomProduct.getSubproducts(product._id);
-    res.status(200).json(result);
+    const formattedResult = await lineBot.sendProductsWithQuantity(result);
+    res.status(200).json(formattedResult);
 });
+
 
 // ---------------- ROTA: Lista subprodutos de um produto ----------------
 router.put('/getSubProducts', async (req, res) => {
-    const { id, contact } = req.body;
-    console.log("[/getSubProducts] Requisição recebida");
-    console.log("Contato:", contact);
-    console.log("ID do produto (se houver):", id.produtoid);
-
-    const Product = await bot.getProductByKey(id.produtoid);
-    const subProducts = Product.subProducts;
-
-    console.log("SubProducts encontrados:\n", subProducts);
-
-    const produtosFormatados = await bot.sendProductsWithQuantity(subProducts);
-    res.send(produtosFormatados);
+    try {
+        const { id, contact } = req.body;
+        const subProducts = await Product.getSubProducts(id.produtoid);
+        const formattedSubProducts = await lineBot.sendProductsWithQuantity(subProducts);
+        res.status(200).json(formattedSubProducts);
+    } catch (error){
+        
+    }
 });
 
 // ---------------- ROTA: Retorna produtos para remoção ----------------
 router.put('/custom/getExchangeableProducts', async (req, res) => {
-    const { id, contact } = req.body;
-    console.log("[/custom/getExchangeableProducts] Requisição recebida");
-    console.log("Id do subproduto:", id);
+    const { id } = req.body;
 
-    const exchangeable = bot.getExchangeableSubProducts(id.subProdutoid);
-    const exchangeableFormated = await bot.sendProductsWithQuantity(exchangeable);
-    console.log("Produtos trócaveis:", exchangeableFormated);
-    res.send(exchangeableFormated);
+    try {
+        const exchangeable = await SubProduct.getExchangeables(id);
+        const formattedExchangeable = await lineBot.sendProductsWithQuantity(exchangeable);
+        res.status(200).json(formattedExchangeable);
+    } catch(error) {
+
+    }
 });
 
 // ---------------- ROTA: Retorna produtos para substituição ----------------
 router.put('/custom/getRemovableProducts', async (req, res) => {
   try {
-    const { id, contact } = req.body;
-    console.log('Requisição recebida em /custom/getRemovableProducts');
-    console.log('Dados recebidos:', { id, contact });
+    const { contact } = req.body;
 
-    const produtos = bot.getRemovableProducts(contact.number);
-    console.log('Produtos removíveis obtidos:', produtos);
-
-    const produtosFormatados = await bot.sendProductsWithQuantity(produtos);
-    console.log('Produtos formatados para envio:', produtosFormatados);
-
-    res.send(produtosFormatados);
+    const suport = await Suport.getSuportByContact(contact.number);
+    const removables = await CustomProduct.getRemovableSubProducts(suport.currentProduct.product);
+    const formattedRemovables = await lineBot.sendProductsWithoutQuantity(removables)
+    res.status(200).json(formattedRemovables);
   } catch (error) {
     console.error('❌ Erro em /custom/getRemovableProducts:', error);
     res.status(500).send({ error: 'Erro ao obter produtos removíveis.' });
@@ -219,35 +213,24 @@ router.put('/custom/getRemovableProducts', async (req, res) => {
 // ---------------- ROTA: Adiciona subproduto customizado ----------------
 router.put('/custom/addSubProduct', async (req, res) => {
     const { id, contact } = req.body;
-    console.log("[/custom/addSubProduct] Requisição recebida");
-    console.log("Contato:", contact);
-    console.log("ID do subproduto:", id);
 
-    const suport = bot.getSuportByContact(contact.number);
-    console.log("Sessão ativa:", suport.sessionId);
-    console.log("Produto antes da adição:", suport.currentProduct);
+    const suport = await Suport.getSuportByContact(contact.number);
+    const subProduct = await SubProduct.getById(id);
+    const result = await CustomProduct.addSubProduct(subProduct, suport.currentProduct.product);
 
-    bot.addSubProduct(id, suport.currentProduct);
-
-    console.log("Produto após adição do subproduto:", suport.currentProduct);
-    res.send(suport.currentProduct);
+    res.status(200).json(result);
 });
 
 // ---------------- ROTA: Remove subproduto customizado ----------------
 router.put('/custom/removeSubProduct', async (req, res) => {
     const { id, contact } = req.body;
-    console.log("[/custom/removeSubProduct] Requisição recebida");
-    console.log("Contato:", contact);
-    console.log("ID do subproduto:", id);
 
-    const suport = bot.getSuportByContact(contact.number);
-    console.log("Sessão ativa:", suport.sessionId);
-    console.log("Produto antes da adição:", suport.currentProduct);
+    const suport = await Suport.getSuportByContact(contact.number);
+    //const subProduct = await SubProduct.getById(id);
+    console.log(id);
+    const result = await CustomProduct.removeSubProduct(id, suport.currentProduct.product);
 
-    bot.removeFromCustomProduct(id, contact.number);
-
-    console.log("Produto após adição do subproduto:", suport.currentProduct);
-    res.send(suport.currentProduct);
+    res.send(result);
 });
 
 // ---------------- ROTA: Remove subproduto customizado ----------------

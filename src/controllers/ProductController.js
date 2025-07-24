@@ -33,6 +33,23 @@ class ProductController {
         return await Product.findOne({_id});
     }
 
+    async getSubProducts(_id){
+        const product = await Product.findOne({_id}).populate({
+            path: 'subProducts.subProduct',
+            model: 'SubProduct'
+        })
+
+        return product.subProducts.map( sp => {
+            return {
+                _id: sp.subProduct._id,
+                name: sp.subProduct.name,
+                price: sp.subProduct.price,
+                quantity: sp.quantity
+            }
+        });
+    }
+
+
     async addSubProduct(productId, subProduct){
         const product = await Product.findOne({ _id: productId });
         if(product){
@@ -45,8 +62,8 @@ class ProductController {
 
     async detail(productid){
         const product = await Product.findOne({ _id : productid });
-        const details = await product.detail();
-        return { "@detail: ": details };
+        const detail = await product.detail();
+        return { "@detail":  detail };
     }
 
     async updatePrice(productid, newPrice) {

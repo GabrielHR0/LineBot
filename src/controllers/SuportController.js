@@ -26,16 +26,18 @@ class SuportController {
   }
 
   async closeSuport(contactNumber) {
-      const result = await this.getClientSuport(contactNumber);
-      if (!result) return null;
-      
-      const currentSuport = result.suport;
-      const client = result.client;
-
-      client.clearCurrentSession();
-      const resume = currentSuport.closeSuport();
-      await client.save();
-      await currentSuport.save();
+      const suport = await this.getSuportByContact(contactNumber);
+      if (!suport) return null;
+    
+      await Client.findOneAndUpdate(
+        {
+          number: contactNumber,
+          currentSession: suport.sessionId
+        },
+        { $unset: { currentSession: "" } }
+      )
+      const resume = suport.closeSuport();
+      await suport.save();
 
       return resume;
   }
@@ -58,15 +60,6 @@ class SuportController {
   
   async findBySession(sessionId){
     return await Suport.findOne({ sessionId });
-  }
-
-  async getClientSuport(contactNumber) {
-      const client = await Client.findOne({ number: contactNumber });
-
-      if (!client || !client.currentSession) return null;
-
-      const suport = await this.getCurrentSuport(client.currentSession);
-      return {client: client, suport: suport};
   }
 
   async getCurrentSuport(sessionId) {

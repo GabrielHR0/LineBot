@@ -46,11 +46,11 @@ POST http://localhost:8080/SubProduct/new
 Content-Type: application/json
 
 {
-  "productId": "687fe73b9eae629b57efab57",
+  "productId": "687fe74a9eae629b57efab59",
   "data": {
     "parentProduct": "6878ff2b9337af0e27cbe33f",
-    "bundlePrice": 100,
-    "quantity": 2,
+    "bundlePrice": 120,
+    "quantity": 1,
     "isEssential": false
   }
 }
@@ -110,28 +110,6 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/editLastOrcamento
-Content-Type: application/json
-
-{
-  "contact" : {
-    "number" : "558498332658@c.us",
-    "name" : "Gabriel Henrique"
-  }
-}
-
-###
-PUT http://localhost:8080/lineBot/custom/allSubProducts
-Content-Type: application/json
-
-{
-  "contact" : {
-    "number" : "558498332658@c.us",
-    "name" : "Gabriel Henrique"
-  }
-}
-
-###
 PUT http://localhost:8080/lineBot/custom/init
 Content-Type: application/json
 
@@ -140,4 +118,23 @@ Content-Type: application/json
     "number" : "558498332658@c.us",
     "name" : "Gabriel Henrique"
   }
+}
+
+###
+PUT http://localhost:8080/lineBot/custom/getRemovableProducts
+Content-Type: application/json
+
+{
+  "contact" : {
+    "number" : "558498332658@c.us",
+    "name" : "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/custom/getRemovableProducts
+Content-Type: application/json
+
+{
+  "id" : "6881289f60cea6c60656a915"
 }

@@ -117,8 +117,6 @@ class OrcamentoController {
             });
         }
 
-        console.log("Orcamento:", orcamento);
-
         const orcamentoResume = await orcamento.resume();
         const resumeArray = orcamentoResume.items.map((item, index) => {
             return `${index + 1}. ${item.quantity}x ${item.name}: R$${item.price}`;

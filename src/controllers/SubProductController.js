@@ -10,21 +10,24 @@ class SubProductController {
         return await SubProduct.find({ parentProduct : parentProductId})
     }
 
-    async getExchangeables(subProductId){
-        const foundSub = await SubProduct.findOne(subProductId);
-
-        if (!foundSub) {
-            throw new Error("Nenhum subproduto encontrado");
-        }
+    async getExchangeables(_id){
+        const subProduct = await SubProduct.findOne({_id});
 
         const exchangeables = await SubProduct.find(
             {
-                parentProduct: foundSub.parentProduct,
-                category: foundSub.category,
-                _id: !foundSub._id
+                parentProduct: subProduct.parentProduct,
+                category: subProduct.category,
+                _id: { $ne: subProduct._id }
             }
         )
-        return exchangeables;
+        return exchangeables.map(sp =>{
+            return {
+                _id: sp._id,
+                name: sp.name,
+                price: sp.bundlePrice,
+                quantity: sp.quantity
+            }
+        });
     }
 
     async factory(product, data){

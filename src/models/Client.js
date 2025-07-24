@@ -17,7 +17,8 @@ const ClientSchema = new mongoose.Schema({
     currentSession: {
         type: String,
         unique: true,
-        default: null,
+        sparse: true, // Isso resolve!
+        default: null
     }
 }, { timestamps: true });
 
