@@ -103,28 +103,26 @@ CustomProductSchema.methods.addSubProduct = async function (subProduct, customQu
     return this;
 }
 
+CustomProductSchema.methods.detail = async function () {
+    const populated = await this.populate([
+        { path: 'subProducts.subProductId', model: 'SubProduct' },
+        { path: 'product',  model: 'Product' }
+    ]);
 
-CustomProductSchema.methods.getDetailedInfo = async function() {
-  await this.populate('product').populate('subProducts.subProductId');
+    let msg = `Produto: ${populated.name}\n\n`;
+    msg += `Preço: R$ ${(populated.price).toFixed(2)}\n\n`;
 
-  return this.detail();
-};
-
-CustomProductSchema.methods.detail = function () {
-    let msg = `Produto: ${this.name}\n`;
-    msg += `Preço: R$ ${(this.price / 100).toFixed(2)}\n`;
-
-    if (this.product?.description) {
-        msg += `Descrição: ${this.product.description}\n`;
+    if (populated.product?.description) {
+        msg += `Descrição: ${populated.product.description}\n\n`;
     }
 
-    if (this.product?.compDescription) {
-        msg += `Detalhes: ${this.product.compDescription}\n`;
+    if (populated.product?.compDescription) {
+        msg += `Detalhes: ${populated.product.compDescription}\n\n`;
     }
 
-    if (this.subProducts?.length) {
+    if (populated.hasSubProducts()) {
         msg += `\nItens inclusos:\n`;
-        this.subProducts.forEach(sp => {
+        populated.subProducts.forEach(sp => {
             const qnt = sp.quantity ?? 1;
             const name = sp.subProductId?.name || 'Produto desconhecido';
             msg += ` - ${qnt}x ${name}\n`;

@@ -97,8 +97,9 @@ class CustomProductController {
     }
 
     async detail(productid){
-        const product = await CustomProduct.findOne({ _id : productid });
-        return { "@detail: ": await product.detail() };
+        const custom = await CustomProduct.findOne({ _id : productid });
+        const detail = await custom.detail();
+        return { "@detail":  detail };
     }
 
 }

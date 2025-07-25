@@ -121,7 +121,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/custom/getRemovableProducts
+PUT http://localhost:8080/lineBot/detailProduct
 Content-Type: application/json
 
 {
@@ -132,9 +132,9 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/custom/getRemovableProducts
+PUT http://localhost:8080/lineBot/custom/getExchangeableProducts
 Content-Type: application/json
 
 {
-  "id" : "6881289f60cea6c60656a915"
+  "id" : "6880dec4cbbe552745ec8f9c"
 }
