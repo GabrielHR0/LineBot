@@ -17,7 +17,8 @@ const OrderSchema = mongoose.Schema({
     orderNumber : {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        sparse: true,
     },
     client : {
         type : mongoose.Schema.Types.ObjectId,
@@ -66,13 +67,13 @@ const OrderSchema = mongoose.Schema({
     productProgress : {
         completed : [ProductProgressSchema],
         pending : [ProductProgressSchema]
-    }
+    },
 
 }, { timestamps : true })
 
 
-OrderSchema.pre('save', async function(next) {
-  if (this.isNew && !this.orderNumber) {
+OrderSchema.pre('validate', async function(next) {
+  if (!this.orderNumber) {
     const counter = await Counter.findByIdAndUpdate(
       { _id: 'orderNumber' },
       { $inc: { seq: 1 } },

@@ -57,6 +57,13 @@ class SuportController {
       { $set: { currentOrcamento: orcamento } }
     );
   }
+
+  async setOrder(_id, orderId){
+    await Suport.updateOne(
+      {_id},
+      { $set: { order: orderId}}
+    )
+  }
   
   async findBySession(sessionId){
     return await Suport.findOne({ sessionId });
@@ -76,6 +83,19 @@ class SuportController {
       model: suport.currentProduct.productType
     })
     return suport.currentProduct.product;
+  }
+
+  async getCurrentOrcamento(suport){
+    await suport.populate({
+      path: 'currentOrcamento',
+      model: 'Orcamento',
+      populate: {
+        path: 'items.product',
+        model: 'Product' || 'CustomProduct',
+      }
+    });
+
+    return suport.currentOrcamento;
   }
 
 }

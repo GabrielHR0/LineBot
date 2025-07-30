@@ -38,9 +38,9 @@ const ProductSchema = new mongoose.Schema({
         default: 1
     }
   }],
-  category: {
+  group: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
+    ref: 'Group',
     default: null
   },
   compDescription: {
@@ -56,7 +56,7 @@ const ProductSchema = new mongoose.Schema({
 
 // Indexes
 ProductSchema.index({ isActive: 1, isSalable: 1 });
-ProductSchema.index({ category: 1 });
+ProductSchema.index({ group: 1 });
 
 ProductSchema.virtual('hasSubproducts').get(function() {
     return this.subProducts && this.subProducts.length > 0;
@@ -94,7 +94,7 @@ ProductSchema.methods.calculatePrice = async function() {
 
 ProductSchema.methods.detail = async function() {
     let msg = `Produto: ${this.name}\n`;
-    msg += `Preço: R$ ${this.price.toFixed(2)}\n`;
+    msg += `Preço: R$ ${(this.price/100).toFixed(2)}\n`;
 
     if (this.description) {
         msg += `Descrição: ${this.description}\n`;

@@ -16,7 +16,7 @@ class SubProductController {
         const exchangeables = await SubProduct.find(
             {
                 parentProduct: subProduct.parentProduct,
-                category: subProduct.category,
+                group: subProduct.group,
                 _id: { $ne: subProduct._id }
             }
         )
@@ -35,7 +35,7 @@ class SubProductController {
         return await SubProduct.create({
             name : product.name,
             product: product._id,
-            category: product.category,
+            group: product.group,
             parentProduct: data.parentProduct,
             bundlePrice: data.bundlePrice,
             quantity: data.quantity || 1,

@@ -10,6 +10,10 @@ const GroupSchema = new mongoose.Schema({
         type : String,
         trim : true,
     },
+    subGroups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Group'
+    }]
 })
 
 module.exports = mongoose.model('Group', GroupSchema); 

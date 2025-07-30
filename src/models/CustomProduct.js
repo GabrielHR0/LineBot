@@ -110,7 +110,7 @@ CustomProductSchema.methods.detail = async function () {
     ]);
 
     let msg = `Produto: ${populated.name}\n\n`;
-    msg += `Preço: R$ ${(populated.price).toFixed(2)}\n\n`;
+    msg += `Preço: R$ ${(populated.price/100).toFixed(2)}\n\n`;
 
     if (populated.product?.description) {
         msg += `Descrição: ${populated.product.description}\n\n`;

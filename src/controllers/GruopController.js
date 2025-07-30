@@ -1,4 +1,4 @@
-const Group = require('../models/')
+const Group = require('../models/Group')
 
 class GroupController {
 
@@ -8,4 +8,13 @@ class GroupController {
             description
         })
     }
+
+    async pushSubGrup(_id, subGroupId){
+        return await Group.updateOne(
+            { _id },
+            { $addToSet: { subGroups: subGroupId } }
+        )
+    }
 }
+
+module.exports = new GroupController();

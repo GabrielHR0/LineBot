@@ -12,7 +12,7 @@ class ProductController {
                 isActive: data.isActive || true,
                 isSalable: data.isSalable,
                 subProducts: data.subProducts, // array com { subProduct, quantity }
-                category: data.category,
+                group: data.group,
                 compDescription: data.compDescription,
                 img: data.img
             });

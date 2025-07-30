@@ -121,7 +121,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/custom/getRemovableProducts
+PUT http://localhost:8080/lineBot/makeOrder
 Content-Type: application/json
 
 {

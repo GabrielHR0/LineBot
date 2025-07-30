@@ -10,6 +10,13 @@ class ClientController {
         );
     }
 
+    async pushOrder(_id, orderId){
+        await Client.updateOne(
+            { _id },
+            { $addToSet: { orders: orderId } }
+        );
+    }
+
     async findByNumber(number){
         return await Client.findOne({ number });
     }

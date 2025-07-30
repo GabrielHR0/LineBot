@@ -16,9 +16,9 @@ const SubProductSchema = mongoose.Schema({
         ref: 'Product',
         required: true
     },
-    category: {
+    group: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
+        ref: 'Group',
         required: true
     },
     bundlePrice: {

@@ -19,7 +19,11 @@ const ClientSchema = new mongoose.Schema({
         unique: true,
         sparse: true, // Isso resolve!
         default: null
-    }
+    },
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }]
 }, { timestamps: true });
 
 

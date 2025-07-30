@@ -119,10 +119,10 @@ class OrcamentoController {
 
         const orcamentoResume = await orcamento.resume();
         const resumeArray = orcamentoResume.items.map((item, index) => {
-            return `${index + 1}. ${item.quantity}x ${item.name}: R$${item.price}`;
+            return `${index + 1}. ${item.quantity}x ${item.name}: R$${(item.price/100).toFixed(2)}`;
         })
 
-        resumeArray.push(`\nTotal: R$${orcamentoResume.total}`);
+        resumeArray.push(`\nTotal: R$${(orcamentoResume.total/100).toFixed(2)}`);
         return { "@resumo": resumeArray.join("\n"), "@notification" : notification ?? ""};
     }
 
