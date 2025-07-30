@@ -1,4 +1,3 @@
-const { findOne } = require('../models/Client');
 const CustomProduct = require('../models/CustomProduct');
 const SubProduct = require('../models/SubProduct');
 
@@ -24,40 +23,41 @@ class CustomProductController {
                 {new: true}
             )
         }
+
+        await result.updatePrice(subProduct.bundlePrice);
+
         return custom;
     }
 
     async removeSubProduct(subProductId, customProductid){
-        const result = await CustomProduct.findOneAndUpdate(
+        let result = await CustomProduct.findOneAndUpdate(
             {
                 _id: customProductid,
                 'subProducts.subProductId': subProductId,
                 'subProducts.quantity': { $gt: 1 }
 
             },
-            { $inc: {'subProducts.$.quantity': -1} },
+            { $inc: {
+                'subProducts.$.quantity': -1,
+            } },
             { new: true }
-        );
+        ).populate({
+            path: 'subProducts.subProductId',
+            model: 'SubProduct'
+        })
 
         if (!result){
-            return await CustomProduct.findOneAndUpdate(
+            result = await CustomProduct.findOneAndUpdate(
                 {_id: customProductid},
                 {$pull: {subProducts: { subProductId } } },
                 {new: true}
             );
         }
-        
-        return result;
-        
-    }
 
-    async updatePrice(spPrice){
-        return await CustomProduct.findOneAndUpdate(
-            { _id: this._id },
-            { $inc: { price: Number(spPrice) } }, 
-            { new: true } 
-        );
-    };
+        const sp = await SubProduct.findOne({_id: subProductId});
+        await result.updatePrice(-1 * sp.bundlePrice);
+        return result;
+    }
 
     async getSubproducts(_id){
         const custom = await CustomProduct.findOne({_id})
@@ -81,6 +81,8 @@ class CustomProductController {
             model: 'SubProduct',
             match: { isEssential: false },
         })
+
+        console.log(removables);
         
         return removables.subProducts.map( sp => {
             return {
@@ -93,6 +95,9 @@ class CustomProductController {
     }
 
     async create(product){
+        if (await CustomProduct.exists({_id: product})){
+            return null;
+        }
         return await CustomProduct.factory(product);
     }
 

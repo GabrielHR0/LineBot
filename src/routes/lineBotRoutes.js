@@ -8,6 +8,7 @@ const Product = require('../controllers/ProductController');
 const SubProduct = require('../controllers/SubProductController');
 const Suport = require('../controllers/SuportController');
 const lineBot = require('../controllers/LineBotController');
+const LineBotController = require('../controllers/LineBotController');
 
 // ---------------- ROTA: Início de suporte ----------------
 router.put('/initSuport', async (req, res) => {
@@ -171,9 +172,13 @@ router.put('/custom/init', async (req, res) => {
         const suport = await Suport.getSuportByContact(contact.number);
         const product = await Suport.getCurrentProduct(suport);
         const custom = await CustomProduct.create(product);
-        await suport.setCurrentProduct(custom);
-        console.log("Customização iniciada:", custom);
-        res.status(200).json(custom);
+        if(custom){
+            await suport.setCurrentProduct(custom);
+                console.log("Customização iniciada:", custom);
+                res.status(200).json(custom);
+        }
+        console.log("Customização já havia sido iniciada:", product);
+        res.status(200).json(product);
     } catch (error) {
         console.error("[/custom/init] Erro:", error);
         res.status(500).send({ error: 'Erro interno ao customizar produto.' });
@@ -187,6 +192,7 @@ router.put('/custom/allSubProducts', async (req, res) => {
     const suport = await Suport.getSuportByContact(contact.number);
     const product = await Suport.getCurrentProduct(suport);
     const result = await CustomProduct.getSubproducts(product._id);
+    console.log(result);
     const formattedResult = await lineBot.sendProductsWithQuantity(result);
     console.log("Subprodutos customizados:", formattedResult);
     res.status(200).json(formattedResult);
@@ -201,8 +207,9 @@ router.put('/getSubProducts', async (req, res) => {
         const suport = await Suport.getSuportByContact(contact.number);
         if (suport.currentProduct.productType === "CustomProduct") {
             const subProducts = await CustomProduct.getSubproducts(suport.currentProduct.product);
+            const formattedSubProducts = await LineBotController.sendProductsWithQuantity(subProducts);
             console.log("SubProducts:", subProducts);
-            return res.send(subProducts);
+            return res.send(formattedSubProducts);
         }
         const subProducts = await Product.getSubProducts(suport.currentProduct.product);
         const formattedSubProducts = await lineBot.sendProductsWithQuantity(subProducts);
@@ -218,7 +225,7 @@ router.put('/custom/getExchangeableProducts', async (req, res) => {
     console.log("[ROTA] /custom/getExchangeableProducts");
     const { id } = req.body;
     console.log("Subproduto ID:", id);
-    const exchangeable = await SubProduct.getExchangeables(id.subProdutoid);
+    const exchangeable = await SubProduct.getExchangeables(id);
     const formattedExchangeable = await lineBot.sendProductsWithQuantity(exchangeable);
     res.status(200).json(formattedExchangeable);
 });
@@ -242,6 +249,7 @@ router.put('/custom/getRemovableProducts', async (req, res) => {
 router.put('/custom/addSubProduct', async (req, res) => {
     console.log("[ROTA] /custom/addSubProduct");
     const { id, contact } = req.body;
+    console.log("Id adicionado agora porra: ", id);
     const suport = await Suport.getSuportByContact(contact.number);
     const subProduct = await SubProduct.getById(id);
     const result = await CustomProduct.addSubProduct(subProduct, suport.currentProduct.product);
@@ -253,6 +261,7 @@ router.put('/custom/addSubProduct', async (req, res) => {
 router.put('/custom/removeSubProduct', async (req, res) => {
     console.log("[ROTA] /custom/removeSubProduct");
     const { id, contact } = req.body;
+    console.log(id);
     const suport = await Suport.getSuportByContact(contact.number);
     const result = await CustomProduct.removeSubProduct(id, suport.currentProduct.product);
     console.log("Subproduto removido:", result);

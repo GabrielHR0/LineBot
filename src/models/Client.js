@@ -36,11 +36,13 @@ ClientSchema.statics.createClient = async function(contactInfo){
 ClientSchema.methods.lastOrcamento = async function() {
   const clienteComOrcamentos = await this.populate({
     path: 'orcamentos',
+    model: 'Orcamento',
     options: { 
       sort: { createdAt: -1 },
       limit: 1
     }
   });
+  console.log('Cliente populado', clienteComOrcamentos.orcamentos[0]);
   return clienteComOrcamentos.orcamentos[0] || null;
 
 };

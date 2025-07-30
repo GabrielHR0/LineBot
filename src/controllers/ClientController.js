@@ -20,10 +20,7 @@ class ClientController {
             
             if (!client) {
                 return { 
-                    notification: {
-                        type: 'error',
-                        message: 'Cliente não encontrado'
-                    },
+                    notification: 'Cliente não encontrado',
                     orcamento: null
                 };
             }
@@ -36,6 +33,8 @@ class ClientController {
                     orcamento: null
                 };
             }
+
+            let notification = null;
 
             return {
                 notification,
