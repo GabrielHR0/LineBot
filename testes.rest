@@ -138,3 +138,11 @@ Content-Type: application/json
 {
   "id" : "6880dec4cbbe552745ec8f9c"
 }
+
+###
+PUT http://localhost:8080/lineBot/availableTimeSlots
+Content-Type: application/json
+
+{
+  "date": "04/08/2025"
+}

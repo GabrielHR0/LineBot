@@ -98,6 +98,13 @@ class SuportController {
     return suport.currentOrcamento;
   }
 
+  async setSatus(_id, status){
+    await Suport.updateOne(
+      { _id },
+      {$set: { status: status } }
+    )
+  }
+
 }
 
 module.exports = new SuportController();

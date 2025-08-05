@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
+
 
 const Client = require('../controllers/ClientController');
 const CustomProduct = require('../controllers/CustomProductController');
@@ -9,6 +11,7 @@ const SubProduct = require('../controllers/SubProductController');
 const Suport = require('../controllers/SuportController');
 const LineBot = require('../controllers/LineBotController');
 const Order = require('../controllers/OrderController');
+const Schedule = require('../controllers/ScheduleController');
 
 // ---------------- ROTA: Início de suporte ----------------
 router.put('/initSuport', async (req, res) => {
@@ -303,21 +306,35 @@ router.put('/makeOrder', async (req, res) => {
 router.put('/previewOrder', async (req, res) => {
     console.log("[ROTA] /previewOrder");
     const { contact } = req.body;
-    const suport = await Suport.getSuportByContact(contact.number)
+    const suport = await Suport.getSuportByContact(contact.number);
     const orcamento = await Suport.getCurrentOrcamento(suport);
-    const orderPreview = await Order.createPreview(orcamento)
+    const orderPreview = await Order.createPreview(orcamento);
     res.send({"@resumoPedido": orderPreview});
 });
 
-// ---------------- ROTA: Associar order com cliente ----------------
-router.put('/confirmOrder', async (req, res) => {
-    console.log("[ROTA] /confirmOrder");
+// ---------------- ROTA: Definir client em atendimento por uma pessoa ----------------
+router.put('/holdContact', async (req, res) => {
     const { contact } = req.body;
-    const suport = await Suport.getSuportByContact(contact.number)
-    
-    res.send({"@resumoPedido": orderPreview});
+    try {
+        const suport = await Suport.getSuportByContact(contact.number);
+        await Suport.setSatus(suport._id, 'waiting');
+        console.log("Enviando contato:", contact);
+        await axios.get(`http://localhost:4006/bot/v1/holdContact/${contact.number}`);
+        res.status(200).json({ message: `Contato ${contact} pausado com bot com sucesso.` });
+    } catch (error){
+        console.error("[holdContact] Erro:", error);
+        res.status(500).send({ error: 'Erro ao colocar contato em espera.' });
+    }
+
+})
+
+// ---------------- ROTA: retorna horários disponíveis ----------------
+router.put('/availableTimeSlots', async (req, res) => {
+    console.log("[ROTA] /availableTimeSlots");
+    Schedule.getAvailableTimeSlots(req, res)
+        .then(timeSlots => {
+            res.status(200).json(timeSlots);
+        });
 });
-
-
 
 module.exports = router;
