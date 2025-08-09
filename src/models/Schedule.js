@@ -25,6 +25,7 @@ const ScheduleSchema = new mongoose.Schema({
             type: Boolean,
             default: true
         }
+        
     }],
     daysOff: {     // Datas no formato "YYYY-MM-DD"
         type: [String],

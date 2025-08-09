@@ -2,7 +2,6 @@ const Appointment = require('../models/Appointment');
 const Schedule = require('../models/Schedule');
 const moment = require('moment');
 
-
 class ScheduleController {
 
     async getSchedule(req, res) {
@@ -16,6 +15,51 @@ class ScheduleController {
         }
     }
 
+    async validateDate(req, res) {
+        try {
+            const { date } = req.body;
+            const cleanedDate = date.replace(/\s/g, '');
+            console.log("Validating date: ", cleanedDate);
+            if( !cleanedDate || !/^\d{2}\/\d{2}\/\d{4}$/.test(cleanedDate)) {
+                return res.send({ problem: 'INVALID_DATE_FORMAT' });
+            }
+
+            const [day, month, year] = cleanedDate.split('/');
+            const dateObj = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
+            
+            console.log("dateObj: ", dateObj);
+            if (!dateObj.isValid()) {
+                return res.send({ problem: 'INVALID_DATE' });
+            }
+            if( dateObj.isBefore(moment().startOf('day'))) {
+                return res.send({ problem: 'PAST_DATE' });
+            }
+            if( dateObj.isAfter(moment().add(30, 'days').endOf('day'))) {
+                return res.send({ problem: 'OUT_OF_RANGE' });
+            }
+
+            const schedule = await Schedule.getSingleton();
+            const dayOfWeek = dateObj.day();
+            const daySchedule = schedule.weekSchedule.find(day => day.dayOfWeek === dayOfWeek);
+
+            if (!daySchedule || !daySchedule.active) {
+                return res.send({ problem: 'INACTIVE_DAY' });
+            }
+
+            const isDayOff = schedule.daysOff.includes(dateObj.format('YYYY-MM-DD'));
+            if (isDayOff) {
+                return res.send({ problem: 'DAY_OFF' });
+            }
+
+            if( (await this.fullDaySchedule(dateObj)).isFull) {
+                return res.send({ problem: 'FULL_DAY' });
+            }
+            res.status(200).json({ date: dateObj.format('YYYY-MM-DD') });
+        } catch (error) {
+            console.error('Error validating date:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
     async updateSettings(req, res) {
         try {
             const { timeSlot } = req.body;
@@ -141,6 +185,53 @@ class ScheduleController {
         } catch (error) {
             console.error('Error fetching available time slots:', error);
             res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    async fullDaySchedule(date) {
+        try {
+            console.log("Checking full day schedule for date: ", date.format('YYYY-MM-DD'));
+            const schedule = await Schedule.getSingleton();
+            const appointments = await Appointment.find(
+                { date: date.format('YYYY-MM-DD'), status: { $ne: 'cancelled' } },
+                { start: 1, end: 1 , _id: 0}
+            );
+            console.log("appointments: ", appointments);
+            if (!appointments || appointments.length === 0) {
+                return({isFull: false});
+            }
+            const timeSlots = [];
+            const dayOfWeek = date.day();
+            const daySchedule = schedule.weekSchedule.find(day => day.dayOfWeek === dayOfWeek);
+            for (const hours of daySchedule.workingHours) {
+                let startTime = moment(`${date.format('YYYY-MM-DD')} ${hours.start}`, 'YYYY-MM-DD HH:mm');
+                const endTime = moment(`${date.format('YYYY-MM-DD')} ${hours.end}`, 'YYYY-MM-DD HH:mm');
+                while (startTime.isBefore(endTime)) {
+                    const slotStart = startTime.format('HH:mm');
+                    const slotEnd = startTime.clone().add(schedule.settings.timeSlot, 'minutes').format('HH:mm');
+                    console.log(`Checking slot: ${slotStart} - ${slotEnd}`);
+                    // Verifica se o horário está ocupado
+                    const isBooked = appointments.some(app =>
+                        app.start === slotStart && app.end === slotEnd
+                    );
+                    if (isBooked || startTime.isBefore(moment().startOf('hour'))) {
+                        startTime.add(schedule.settings.timeSlot, 'minutes');
+                        continue;
+                    }
+                    timeSlots.push({
+                        start: `${slotStart}`,
+                        end: `${slotEnd}`,
+                    });
+                    startTime.add(schedule.settings.timeSlot, 'minutes');
+                }
+            }
+            if (timeSlots.length === 0) {
+                return ({ isFull: true, error: 'No available time slots for this date.' });
+            }
+            return ({ isFull: false, timeSlots });
+        } catch (error) {
+            console.error('Error fetching available time slots:', error);
+            return ({ error: 'Internal server error' });
         }
     }
 

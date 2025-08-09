@@ -140,9 +140,9 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/availableTimeSlots
+PUT http://localhost:8080/lineBot/validateDate
 Content-Type: application/json
 
 {
-  "date": "04/08/2025"
+  "date": "20/08/2025"
 }

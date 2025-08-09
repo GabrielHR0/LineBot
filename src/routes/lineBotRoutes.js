@@ -331,10 +331,21 @@ router.put('/holdContact', async (req, res) => {
 // ---------------- ROTA: retorna horários disponíveis ----------------
 router.put('/availableTimeSlots', async (req, res) => {
     console.log("[ROTA] /availableTimeSlots");
+    console.log('Data recebida:', req.body);
     Schedule.getAvailableTimeSlots(req, res)
         .then(timeSlots => {
             res.status(200).json(timeSlots);
         });
+});
+
+router.put('/validateDate', async (req, res) => {
+    console.log("[ROTA] /validateDate");
+    try {
+        const isValid = await Schedule.validateDate(req, res);
+    } catch (error) {
+        console.error("[/validateDate] Erro:", error);
+        res.status(500).send({ error: 'Erro ao validar horário.' });
+    }
 });
 
 module.exports = router;
