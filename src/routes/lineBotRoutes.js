@@ -195,9 +195,11 @@ router.put('/custom/allSubProducts', async (req, res) => {
     const suport = await Suport.getSuportByContact(contact.number);
     const product = await Suport.getCurrentProduct(suport);
     const result = await CustomProduct.getSubproducts(product._id);
-    console.log(result);
+
     const formattedResult = await LineBot.sendProductsWithQuantity(result);
-    console.log("Subprodutos customizados:", formattedResult);
+    if (result.problem){
+        res.send(result);
+    }
     res.status(200).json(formattedResult);
 });
 
@@ -337,6 +339,22 @@ router.put('/availableTimeSlots', async (req, res) => {
             res.status(200).json(timeSlots);
         });
 });
+
+router.put('/selectTime', async (req, res) => {
+    const { id , contact} = req.body;
+    const client = await Client.findByNumber(contact.number);
+    console.log("Cliente que agendou:", client);
+    Object.assign(req.body, { client: client._id, title: `Encontro de Validação`, description: `Encontro agendado para definir os detalhes do pedido feito pelo atendimento automatico`})
+    const appointmentId = await Schedule.scheduleAppointment(req, res);
+    //await Client.setAppointment(client._id, appointmentId);
+    res.send({ message: "resultado ok"});
+})
+
+router.put('/resumeAppointment', async (req, res) => {
+    console.log("[ROTA] /resumeAppointment");
+    console.log("Dados recebidos:", req.body);
+    await Schedule.resumeAppointment(req, res);
+})
 
 router.put('/validateDate', async (req, res) => {
     console.log("[ROTA] /validateDate");

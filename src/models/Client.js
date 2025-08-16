@@ -23,7 +23,11 @@ const ClientSchema = new mongoose.Schema({
     orders: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Order'
-    }]
+    }],
+    appointment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Appointment'
+    }
 }, { timestamps: true });
 
 

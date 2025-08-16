@@ -40,5 +40,13 @@ const AppointmentSchema = new mongoose.Schema({
     },
 }, {timestamps:true});
 
+AppointmentSchema.methods.resume = async function() {
+    return {
+        title: this.title,
+        date: this.date,
+        start: this.start,
+        end: this.end,
+    };
+};
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);

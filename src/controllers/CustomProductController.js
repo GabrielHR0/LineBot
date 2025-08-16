@@ -65,6 +65,9 @@ class CustomProductController {
             path: 'subProducts.subProductId',
             model: 'SubProduct'
         });
+        if(custom.subProducts.length === 0){
+            return {problem: true, error: "No subproducts found for this custom product."};
+        }
         return custom.subProducts.map( sp => {
             return {
                 _id: sp.subProductId._id,

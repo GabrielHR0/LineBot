@@ -17,6 +17,20 @@ class ClientController {
         );
     }
 
+    async setAppointment(_id, appointmentId) {
+        await Client.findOneAndUpdate(
+            { _id },
+            { $set: { appointment: appointmentId } }
+        );
+    }
+
+    async getAppointment(number) {
+        return await Client.findOne(
+            { number },
+            { appointment: 1, _id: 0 }
+        );
+    }
+
     async findByNumber(number){
         return await Client.findOne({ number });
     }

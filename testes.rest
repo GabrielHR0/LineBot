@@ -146,3 +146,34 @@ Content-Type: application/json
 {
   "date": "20/08/2025"
 }
+
+###
+PUT http://localhost:8080/lineBot/resumeAppointment
+Content-Type: application/json
+
+{
+  "contact": {
+    "number": "558498332658@c.us",
+    "name": "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/selectTime
+Content-Type: application/json
+
+{ 
+  "id": "1755658800000",
+  "contact": {
+    "number": "558498332658@c.us",
+    "name": "Gabriel Henrique"
+  }
+}
+
+###
+PUT http://localhost:8080/lineBot/availableTimeSlots
+Content-Type: application/json
+
+{ 
+  "date": "20/08/2025"
+}

@@ -1,6 +1,7 @@
 const Appointment = require('../models/Appointment');
 const Schedule = require('../models/Schedule');
 const moment = require('moment');
+const { detail } = require('./CustomProductController');
 
 class ScheduleController {
 
@@ -165,12 +166,10 @@ class ScheduleController {
                     continue;
                 }
 
-
                 // Verifica em memória se existe conflito de horário
                 const hasConflict = appointments.some(app =>
                     app.start === slotStart && app.end === slotEnd && app.status !== 'cancelled'
                 );
-
 
                 if (!hasConflict) {
                     timeSlots.push({
@@ -237,13 +236,18 @@ class ScheduleController {
 
     async scheduleAppointment(req, res) {
         try {
-            const { id, client, title, description = null } = req.body;
+            console.log("Dados da requisição:", req.body);
+            const { id, client, title=null, description = null } = req.body;
             const slotMoment = moment(Number(id));
+            console.log("slotMoment:", slotMoment);
             if (!slotMoment.isValid()) {
+                console.log("Invalid slotMoment:", slotMoment);
                 return res.status(400).json({ error: 'Invalid slot ID.' });
             }
             const dateStr = slotMoment.format('YYYY-MM-DD');
             const timeStr = slotMoment.format('HH:mm');
+            console.log("dateStr:", dateStr, "timeStr:", timeStr);
+            /*
             const schedule = await Schedule.getSingleton();
             const isDayOff = schedule.daysOff.includes(dateStr);
             if (isDayOff) {
@@ -269,9 +273,30 @@ class ScheduleController {
                 client
             });
             await newAppointment.save();
-            res.status(201).json(newAppointment);
+            return newAppointment._id;
+            */
         } catch (error) {
             console.error('Error scheduling appointment:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+        
+    }
+
+    async resumeAppointment(req, res) {
+        try {
+            const {id, date, contact} = req.body;
+            const startSlotMoment = moment(Number(id));
+            const dateStr = startSlotMoment.format('YYYY-MM-DD');
+            const startTimeStr = startSlotMoment.format('HH:mm');
+            const schedule  = await Schedule.getSingleton();
+            const endTimeStr = startSlotMoment.clone().add(schedule.settings.timeSlot, 'minutes').format('HH:mm');
+
+            const msg = 
+            `Data: ${resume.date}\n
+            Horario: ${startTimeStr}-${endTimeStr}`;
+            return res.send({"@resumeAppointment": msg});
+        } catch (error) {
+            console.error('Error resuming appointment:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
