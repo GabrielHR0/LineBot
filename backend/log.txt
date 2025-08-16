@@ -1,0 +1,664 @@
+Bot oracle port 5006
+Bot backend port 4006
+nome do bot: lineBot
+nome do bot dps do send: lineBot
+newContact
+save
+receive
+!Support
+openSupport
+addMessage
+jumpResolver
+prepare:  { route: '/lineBot/initSuport' }
+[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: {}
+[DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/initSuport
+[DEBUG] Dados recebidos na rota /initSuport: { name: 'Raerio', number: '558498332658@c.us' }
+[DEBUG] Depois do await - resultado: {
+  isReturnData: true,
+  data: {
+    currentProduct: { productType: 'Product', product: '6877fc47e38f7051ee0f8956' },
+    _id: '68a07f99912b4330ecba0024',
+    client: '6882747721372a087f3682bc',
+    contact: '558498332658@c.us',
+    startTime: '2025-08-16T12:54:49.459Z',
+    endTime: null,
+    sessionId: '558498332658@c.us-1755348889460-222',
+    order: '68a084e6dea212d1f67793af',
+    status: 'in_progress',
+    createdAt: '2025-08-16T12:54:49.462Z',
+    updatedAt: '2025-08-16T13:17:26.317Z',
+    __v: 0,
+    currentOrcamento: '68a07f9b912b4330ecba002e'
+  }
+}
+list property
+{
+  isReturnData: true,
+  data: {
+    currentProduct: { productType: 'Product', product: '6877fc47e38f7051ee0f8956' },
+    _id: '68a07f99912b4330ecba0024',
+    client: '6882747721372a087f3682bc',
+    contact: '558498332658@c.us',
+    startTime: '2025-08-16T12:54:49.459Z',
+    endTime: null,
+    sessionId: '558498332658@c.us-1755348889460-222',
+    order: '68a084e6dea212d1f67793af',
+    status: 'in_progress',
+    createdAt: '2025-08-16T12:54:49.462Z',
+    updatedAt: '2025-08-16T13:17:26.317Z',
+    __v: 0,
+    currentOrcamento: '68a07f9b912b4330ecba002e'
+  }
+}
+Esse frame já possui options. A list não foi alterada
+addMessage
+getPendingToDelivery
+{
+  text: 'Gostaria de iniciar um atendimento conosco?\n' +
+    '\n' +
+    '1 - Sim, vamos lá!\n' +
+    '2 - Não por agora, obrigado\n' +
+    '3 - Como funciona?\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Olá! Seja muito bem-vindo ao atendimento automático do Kateliê.\n',
+    format: 'TEXT'
+  },
+  {
+    text: 'Gostaria de iniciar um atendimento conosco?\n' +
+      '\n' +
+      '1 - Sim, vamos lá!\n' +
+      '2 - Não por agora, obrigado\n' +
+      '3 - Como funciona?\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Sim, vamos lá!\n',
+  comments: 'inicializa o atendimento',
+  onSelect: { jump: 'option:/main' }
+}
+VERIFICANDO A ROTA undefined
+jumpResolver
+addMessage
+getPendingToDelivery
+{
+  text: 'Escolha uma das opções abaixo para começarmos:\n' +
+    '\n' +
+    '1 - Ver kits e produtos\n' +
+    '2 - Ver último orçamento\n' +
+    '3 - Acompanhar pedido\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Escolha uma das opções abaixo para começarmos:\n' +
+      '\n' +
+      '1 - Ver kits e produtos\n' +
+      '2 - Ver último orçamento\n' +
+      '3 - Acompanhar pedido\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Ver kits e produtos\n',
+  comments: 'Listar todos os produtos disponíveis',
+  onSelect: { jump: 'option:/produtos' }
+}
+VERIFICANDO A ROTA undefined
+jumpResolver
+prepare:  {
+  content: { id: 'id' },
+  onSelect: { jump: 'option:/acaoProduto' },
+  route: '/lineBot/allProducts',
+  subRoute: '/lineBot/selectProduct'
+}
+[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: {}
+[DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/allProducts
+[DEBUG] Depois do await - resultado: {
+  isReturnData: true,
+  data: [
+    {
+      value: 'Kit Berço percal 230 fios',
+      id: '6877fc47e38f7051ee0f8956'
+    },
+    {
+      value: 'Kit Berço percal 400 fios',
+      id: '6878fea2390fad565747e3b6'
+    },
+    { value: 'Kit Berço linho', id: '6878ff2b9337af0e27cbe33f' },
+    { value: 'Rolo Lateral em Linho', id: '687fe73b9eae629b57efab57' },
+    {
+      value: 'Almofada Personalizada em Linho',
+      id: '687fe74a9eae629b57efab59'
+    },
+    {
+      value: 'Almofada Decorativa em Linho',
+      id: '687fe7519eae629b57efab5b'
+    },
+    {
+      value: 'Protetor de Cabeceira em Linho',
+      id: '687fe7599eae629b57efab5d'
+    },
+    {
+      value: 'Protetor de Peseira em Linho',
+      id: '687fe7639eae629b57efab5f'
+    },
+    { value: 'Mosquiteiro em Linho', id: '687fe76a9eae629b57efab61' },
+    { value: 'Saiote em Linho', id: '687fe7739eae629b57efab63' },
+    { value: 'Colcha em Linho', id: '687fe7b69eae629b57efab65' }
+  ]
+}
+list property
+{
+  isReturnData: true,
+  data: [
+    {
+      value: 'Kit Berço percal 230 fios',
+      id: '6877fc47e38f7051ee0f8956'
+    },
+    {
+      value: 'Kit Berço percal 400 fios',
+      id: '6878fea2390fad565747e3b6'
+    },
+    { value: 'Kit Berço linho', id: '6878ff2b9337af0e27cbe33f' },
+    { value: 'Rolo Lateral em Linho', id: '687fe73b9eae629b57efab57' },
+    {
+      value: 'Almofada Personalizada em Linho',
+      id: '687fe74a9eae629b57efab59'
+    },
+    {
+      value: 'Almofada Decorativa em Linho',
+      id: '687fe7519eae629b57efab5b'
+    },
+    {
+      value: 'Protetor de Cabeceira em Linho',
+      id: '687fe7599eae629b57efab5d'
+    },
+    {
+      value: 'Protetor de Peseira em Linho',
+      id: '687fe7639eae629b57efab5f'
+    },
+    { value: 'Mosquiteiro em Linho', id: '687fe76a9eae629b57efab61' },
+    { value: 'Saiote em Linho', id: '687fe7739eae629b57efab63' },
+    { value: 'Colcha em Linho', id: '687fe7b69eae629b57efab65' }
+  ]
+}
+addMessage
+getPendingToDelivery
+{
+  text: 'Escolha uma dentre as opções listadas abaixo.\n' +
+    '\n' +
+    '1 - Kit Berço percal 230 fios\n' +
+    '2 - Kit Berço percal 400 fios\n' +
+    '3 - Kit Berço linho\n' +
+    '4 - Rolo Lateral em Linho\n' +
+    '5 - Almofada Personalizada em Linho\n' +
+    '6 - Almofada Decorativa em Linho\n' +
+    '7 - Protetor de Cabeceira em Linho\n' +
+    '8 - Protetor de Peseira em Linho\n' +
+    '9 - Mosquiteiro em Linho\n' +
+    '10 - Saiote em Linho\n' +
+    '11 - Colcha em Linho\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Escolha uma dentre as opções listadas abaixo.\n' +
+      '\n' +
+      '1 - Kit Berço percal 230 fios\n' +
+      '2 - Kit Berço percal 400 fios\n' +
+      '3 - Kit Berço linho\n' +
+      '4 - Rolo Lateral em Linho\n' +
+      '5 - Almofada Personalizada em Linho\n' +
+      '6 - Almofada Decorativa em Linho\n' +
+      '7 - Protetor de Cabeceira em Linho\n' +
+      '8 - Protetor de Peseira em Linho\n' +
+      '9 - Mosquiteiro em Linho\n' +
+      '10 - Saiote em Linho\n' +
+      '11 - Colcha em Linho\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Kit Berço percal 230 fios\n',
+  content: {
+    id: { name: 'id', value: '6877fc47e38f7051ee0f8956' },
+    value: 'Kit Berço percal 230 fios'
+  },
+  route: '/lineBot/selectProduct',
+  onSelect: { jump: 'option:/acaoProduto' }
+}
+VERIFICANDO A ROTA /lineBot/selectProduct
+jumpResolver
+addMessage
+getPendingToDelivery
+{
+  text: 'O que deseja fazer com este produto?\n' +
+    '\n' +
+    '1 - Comprar Produto\n' +
+    '2 - Editar Produto\n' +
+    '3 - Ver Detalhes\n' +
+    '4 - Voltar\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'O que deseja fazer com este produto?\n' +
+      '\n' +
+      '1 - Comprar Produto\n' +
+      '2 - Editar Produto\n' +
+      '3 - Ver Detalhes\n' +
+      '4 - Voltar\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Comprar Produto\n',
+  comments: 'Consultar status de pedidos',
+  onSelect: { jump: 'option:/comprarProduto' }
+}
+VERIFICANDO A ROTA undefined
+jumpResolver
+prepare:  { route: '/lineBot/addToOrcamento' }
+[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: { id: '6877fc47e38f7051ee0f8956' }
+[DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/addToOrcamento
+[DEBUG] Depois do await - resultado: {
+  _id: '68a07f9b912b4330ecba002e',
+  client: '6882747721372a087f3682bc',
+  total: 588000,
+  items: [
+    {
+      itemType: 'Product',
+      product: [Object],
+      quantity: 6,
+      _id: '68a07f9b912b4330ecba0031'
+    }
+  ],
+  createdAt: '2025-08-16T12:54:51.646Z',
+  updatedAt: '2025-08-16T13:19:41.694Z',
+  __v: 1
+}
+list property
+{
+  _id: '68a07f9b912b4330ecba002e',
+  client: '6882747721372a087f3682bc',
+  total: 588000,
+  items: [
+    {
+      itemType: 'Product',
+      product: [Object],
+      quantity: 6,
+      _id: '68a07f9b912b4330ecba0031'
+    }
+  ],
+  createdAt: '2025-08-16T12:54:51.646Z',
+  updatedAt: '2025-08-16T13:19:41.694Z',
+  __v: 1
+}
+Esse frame já possui options. A list não foi alterada
+addMessage
+getPendingToDelivery
+{
+  text: 'Produto adicionado ao seu orçamento! O que você gostaria de fazer agora?\n' +
+    '\n' +
+    '1 - Realizar pedido\n' +
+    '2 - Continuar comprando\n' +
+    '3 - Ver orcamento\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Produto adicionado ao seu orçamento! O que você gostaria de fazer agora?\n' +
+      '\n' +
+      '1 - Realizar pedido\n' +
+      '2 - Continuar comprando\n' +
+      '3 - Ver orcamento\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Realizar pedido\n',
+  comments: 'Segue para criar um pedido.',
+  onSelect: { jump: 'info:/verPedido' }
+}
+VERIFICANDO A ROTA undefined
+jumpResolver
+INFO
+submitData { id: '6877fc47e38f7051ee0f8956' }
+FrameInfo.extractAttData
+Dados recebidos para extração: { id: '6877fc47e38f7051ee0f8956' }
+Resultado final da extração: {}
+[DEBUG] Antes do await em INFO - Conteudo a ser enviado: { contact: { name: 'Raerio', number: '558498332658@c.us' } }
+addReturnData
+addAttInReturnData
+FrameInfo.getResume
+FrameInfo.parserText
+Texto original: Confira os detalhes do seu pedido antes de confirmar:
+
+@resumoPedido
+Dados recebidos para substituir: { '@resumoPedido': '1. 6x Kit Berço percal 230 fios - R$ 5880.00' }
+Substituindo: @resumoPedido -> 1. 6x Kit Berço percal 230 fios - R$ 5880.00
+Texto final após substituições: Confira os detalhes do seu pedido antes de confirmar:
+
+1. 6x Kit Berço percal 230 fios - R$ 5880.00
+addMessage
+jumpResolver
+addMessage
+getPendingToDelivery
+{
+  text: 'Você está prestes a confirmar o pedido com os produtos selecionados. Deseja prosseguir?\n' +
+    '\n' +
+    '1 - Sim, confirmar pedido\n' +
+    '2 - Não, voltar para o orçamento\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Confira os detalhes do seu pedido antes de confirmar:\n' +
+      '\n' +
+      '1. 6x Kit Berço percal 230 fios - R$ 5880.00',
+    format: 'TEXT'
+  },
+  {
+    text: 'Você está prestes a confirmar o pedido com os produtos selecionados. Deseja prosseguir?\n' +
+      '\n' +
+      '1 - Sim, confirmar pedido\n' +
+      '2 - Não, voltar para o orçamento\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Sim, confirmar pedido\n',
+  comments: 'Confirma o pedido atual',
+  onSelect: { jump: 'option:/posConfirmacaoPedido' },
+  route: '/lineBot/makeOrder'
+}
+VERIFICANDO A ROTA /lineBot/makeOrder
+jumpResolver
+addMessage
+getPendingToDelivery
+{
+  text: 'Pedido confirmado! 🎉\n' +
+    '\n' +
+    'Agora, como prefere finalizar os detalhes?\n' +
+    'Escolha uma das opções abaixo:\n' +
+    '1 - Quero agendar uma visita\n' +
+    '2 - Prefiro falar com alguém da equipe',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Pedido confirmado! 🎉\n' +
+      '\n' +
+      'Agora, como prefere finalizar os detalhes?\n' +
+      'Escolha uma das opções abaixo:\n' +
+      '1 - Quero agendar uma visita\n' +
+      '2 - Prefiro falar com alguém da equipe',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Quero agendar uma visita\n',
+  comments: 'Agendamento presencial para fechar detalhes',
+  onSelect: { jump: 'form:/enviarData' }
+}
+VERIFICANDO A ROTA undefined
+jumpResolver
+addMessage
+VERIFICANDO O INPUTFORM {
+  id: 'date',
+  text: 'Data: \n',
+  format: 'text',
+  validates: [ { route: '/lineBot/validateDate', problem: [Array] } ]
+}
+addMessage
+getPendingToDelivery
+{ text: 'Data: \n', type: 'TEXT' }
+pendingToDelivery:  [
+  {
+    text: 'Informe uma data para o agendamento (até 30 dias a partir de hoje), no formato DD/MM/AAAA. Ex: 15/08/2025.\n' +
+      '\n',
+    format: 'TEXT'
+  },
+  { text: 'Data: \n', type: 'TEXT' }
+]
+getContact
+receive
+isOpenSupport
+formResolver
+VERIFICANDO O CURRENTINPUT InputForm {
+  id: 'date',
+  text: 'Data: \n',
+  type: undefined,
+  submit: undefined,
+  validates: [ { route: '/lineBot/validateDate', problem: [Array] } ]
+}
+VERIFICANDO V {
+  route: '/lineBot/validateDate',
+  problem: [
+    {
+      type: 'INVALID_DATE_FORMAT',
+      text: 'A data informada não está no formato DD/MM/AAAA.',
+      action: [Object]
+    },
+    {
+      type: 'INVALID_DATE',
+      text: 'A data informada não é válida.',
+      action: [Object]
+    },
+    {
+      type: 'OUT_OF_RANGE',
+      text: 'A data deve estar dentro de 30 dias a partir de hoje.',
+      action: [Object]
+    },
+    {
+      type: 'PAST_DATE',
+      text: 'A data não pode ser uma data passada.',
+      action: [Object]
+    },
+    {
+      type: 'INACTIVE_DAY',
+      text: 'O dia selecionado não aceita agendamentos.',
+      action: [Object]
+    },
+    {
+      type: 'FULL_DAY',
+      text: 'O dia selecionado está completamente agendado.',
+      action: [Object]
+    },
+    {
+      type: 'DAY_OFF',
+      text: 'O dia selecionado é um dia de folga.',
+      action: [Object]
+    },
+    {
+      type: 'NO_APPOINTMENTS',
+      text: 'Não há horários disponíveis para o dia selecionado.',
+      action: [Object]
+    }
+  ]
+}
+[ROTA] /validateDate - Dados recebidos: { id: '6877fc47e38f7051ee0f8956', date: '18/08/2025' }
+[ROTA] /validateDate - Data recebida: 18/08/2025
+[ROTA] /validateDate - Resultado: { date: '2025-08-18' }
+VERIFICANDO R { isReturnData: true, date: '2025-08-18' }
+jumpResolver
+prepare:  {
+  content: { id: 'id' },
+  onSelect: { jump: 'info:/resumoAgendamento' },
+  route: '/lineBot/availableTimeSlots',
+  subRoute: '/lineBot/selectTime'
+}
+[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: { id: '6877fc47e38f7051ee0f8956', date: '18/08/2025' }
+[DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/availableTimeSlots
+Data:  18/08/2025
+[DEBUG] Depois do await - resultado: {
+  isReturnData: true,
+  data: [
+    { id: 1755514800000, value: '08:00 - 08:30' },
+    { id: 1755516600000, value: '08:30 - 09:00' },
+    { id: 1755518400000, value: '09:00 - 09:30' },
+    { id: 1755520200000, value: '09:30 - 10:00' },
+    { id: 1755522000000, value: '10:00 - 10:30' },
+    { id: 1755523800000, value: '10:30 - 11:00' },
+    { id: 1755525600000, value: '11:00 - 11:30' },
+    { id: 1755527400000, value: '11:30 - 12:00' },
+    { id: 1755536400000, value: '14:00 - 14:30' },
+    { id: 1755538200000, value: '14:30 - 15:00' },
+    { id: 1755540000000, value: '15:00 - 15:30' },
+    { id: 1755541800000, value: '15:30 - 16:00' },
+    { id: 1755543600000, value: '16:00 - 16:30' },
+    { id: 1755545400000, value: '16:30 - 17:00' },
+    { id: 1755547200000, value: '17:00 - 17:30' },
+    { id: 1755549000000, value: '17:30 - 18:00' },
+    { id: 1755550800000, value: '18:00 - 18:30' },
+    { id: 1755552600000, value: '18:30 - 19:00' }
+  ]
+}
+list property
+{
+  isReturnData: true,
+  data: [
+    { id: 1755514800000, value: '08:00 - 08:30' },
+    { id: 1755516600000, value: '08:30 - 09:00' },
+    { id: 1755518400000, value: '09:00 - 09:30' },
+    { id: 1755520200000, value: '09:30 - 10:00' },
+    { id: 1755522000000, value: '10:00 - 10:30' },
+    { id: 1755523800000, value: '10:30 - 11:00' },
+    { id: 1755525600000, value: '11:00 - 11:30' },
+    { id: 1755527400000, value: '11:30 - 12:00' },
+    { id: 1755536400000, value: '14:00 - 14:30' },
+    { id: 1755538200000, value: '14:30 - 15:00' },
+    { id: 1755540000000, value: '15:00 - 15:30' },
+    { id: 1755541800000, value: '15:30 - 16:00' },
+    { id: 1755543600000, value: '16:00 - 16:30' },
+    { id: 1755545400000, value: '16:30 - 17:00' },
+    { id: 1755547200000, value: '17:00 - 17:30' },
+    { id: 1755549000000, value: '17:30 - 18:00' },
+    { id: 1755550800000, value: '18:00 - 18:30' },
+    { id: 1755552600000, value: '18:30 - 19:00' }
+  ]
+}
+addMessage
+getPendingToDelivery
+{
+  text: 'Esses são os horarios disponíveis:\n' +
+    '\n' +
+    '1 - 08:00 - 08:30\n' +
+    '2 - 08:30 - 09:00\n' +
+    '3 - 09:00 - 09:30\n' +
+    '4 - 09:30 - 10:00\n' +
+    '5 - 10:00 - 10:30\n' +
+    '6 - 10:30 - 11:00\n' +
+    '7 - 11:00 - 11:30\n' +
+    '8 - 11:30 - 12:00\n' +
+    '9 - 14:00 - 14:30\n' +
+    '10 - 14:30 - 15:00\n' +
+    '11 - 15:00 - 15:30\n' +
+    '12 - 15:30 - 16:00\n' +
+    '13 - 16:00 - 16:30\n' +
+    '14 - 16:30 - 17:00\n' +
+    '15 - 17:00 - 17:30\n' +
+    '16 - 17:30 - 18:00\n' +
+    '17 - 18:00 - 18:30\n' +
+    '18 - 18:30 - 19:00\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Esses são os horarios disponíveis:\n' +
+      '\n' +
+      '1 - 08:00 - 08:30\n' +
+      '2 - 08:30 - 09:00\n' +
+      '3 - 09:00 - 09:30\n' +
+      '4 - 09:30 - 10:00\n' +
+      '5 - 10:00 - 10:30\n' +
+      '6 - 10:30 - 11:00\n' +
+      '7 - 11:00 - 11:30\n' +
+      '8 - 11:30 - 12:00\n' +
+      '9 - 14:00 - 14:30\n' +
+      '10 - 14:30 - 15:00\n' +
+      '11 - 15:00 - 15:30\n' +
+      '12 - 15:30 - 16:00\n' +
+      '13 - 16:00 - 16:30\n' +
+      '14 - 16:30 - 17:00\n' +
+      '15 - 17:00 - 17:30\n' +
+      '16 - 17:30 - 18:00\n' +
+      '17 - 18:00 - 18:30\n' +
+      '18 - 18:30 - 19:00\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: '08:00 - 08:30\n',
+  content: { id: { name: 'id', value: 1755514800000 }, value: '08:00 - 08:30' },
+  route: '/lineBot/selectTime',
+  onSelect: { jump: 'info:/resumoAgendamento' }
+}
+VERIFICANDO A ROTA /lineBot/selectTime
+Id:  1755514800000
+Contato:  { name: 'Raerio', number: '558498332658@c.us' }
+jumpResolver
+INFO
+submitData { id: 1755514800000, date: '18/08/2025' }
+FrameInfo.extractAttData
+Dados recebidos para extração: { id: 1755514800000, date: '18/08/2025' }
+Extraído: id = 1755514800000
+Extraído: date = 18/08/2025
+Resultado final da extração: { id: 1755514800000, date: '18/08/2025' }
+[DEBUG] Antes do await em INFO - Conteudo a ser enviado: {
+  id: 1755514800000,
+  date: '18/08/2025',
+  contact: { name: 'Raerio', number: '558498332658@c.us' }
+}

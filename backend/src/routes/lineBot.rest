@@ -1,0 +1,93 @@
+### Iniciar Bot (init)
+GET http://localhost:4006/bot/v1/init
+
+
+### Iniciar Atendimento (resposta "1" para iniciar)
+PUT http://localhost:4006/bot/v1/message
+Content-Type: application/json
+
+{
+  "name": "Raerio",
+  "typed": "file",
+  "textk": "01.01.038.0024.001",
+  "textd": "05032766429",
+  "text": "1",
+  "from": "558498332658@c.us"
+}
+
+
+### Mostrar Produtos (resposta "1" para mostrar produtos)
+PUT http://localhost:4006/bot/v1/message
+Content-Type: application/json
+
+{
+  "name": "Raerio",
+  "typed": "file",
+  "textk": "01.01.038.0024.001",
+  "textd": "05032766429",
+  "text": "18/08/2025",
+  "from": "558498332658@c.us"
+}
+
+
+### Selecionar Produto 3
+PUT http://localhost:4006/bot/v1/message
+Content-Type: application/json
+
+{
+  "name": "Raerio",
+  "typed": "file",
+  "textk": "01.01.038.0024.001",
+  "textd": "05032766429",
+  "text": "3",
+  "from": "558498332658@c.us"
+}
+
+
+### Editar Produto (resposta "2" para editar produto)
+PUT http://localhost:4006/bot/v1/message
+Content-Type: application/json
+
+{
+  "name": "Raerio",
+  "typed": "file",
+  "textk": "01.01.038.0024.001",
+  "textd": "05032766429",
+  "text": "3",
+  "from": "558481671849@c.us"
+}
+
+
+### Adicionar itens ao produto (resposta "1")
+PUT http://localhost:4006/bot/v1/message
+Content-Type: application/json
+
+{
+  "name": "Raerio",
+  "typed": "file",
+  "textk": "01.01.038.0024.001",
+  "textd": "05032766429",
+  "text": "4",
+  "from": "558481671849@c.us"
+}
+
+###
+
+PUT http://localhost:5006/lineBot/availableTimeSlots
+Content-Type: application/json
+
+{
+  "date": "11/08/2025"
+}
+
+####
+PUT http://localhost:5006/lineBot/selectTime
+Content-Type: application/json
+
+{ 
+  "id": "1754922600000",
+  "contact": {
+    "number": "558498332658@c.us",
+    "name": "Gabriel Henrique"
+  }
+}
