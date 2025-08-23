@@ -2,6 +2,12 @@ Bot oracle port 5006
 Bot backend port 4006
 nome do bot: lineBot
 nome do bot dps do send: lineBot
+nome do bot qr: lineBot
+Cliente finalizado e pronto para uma nova inicialização.
+Bot lineBot autenticado
+Cliente pronto para uso!
+nome do bot: lineBot
+nome do bot dps do send: lineBot
 newContact
 save
 receive
@@ -16,38 +22,36 @@ prepare:  { route: '/lineBot/initSuport' }
 [DEBUG] Depois do await - resultado: {
   isReturnData: true,
   data: {
-    currentProduct: { productType: 'Product', product: '6877fc47e38f7051ee0f8956' },
-    _id: '68a07f99912b4330ecba0024',
+    currentProduct: null,
+    _id: '68a67d60b6b464592248b13d',
     client: '6882747721372a087f3682bc',
     contact: '558498332658@c.us',
-    startTime: '2025-08-16T12:54:49.459Z',
+    startTime: '2025-08-21T01:58:56.912Z',
     endTime: null,
-    sessionId: '558498332658@c.us-1755348889460-222',
-    order: '68a084e6dea212d1f67793af',
+    sessionId: '558498332658@c.us-1755741536912-408',
+    order: null,
     status: 'in_progress',
-    createdAt: '2025-08-16T12:54:49.462Z',
-    updatedAt: '2025-08-16T13:17:26.317Z',
-    __v: 0,
-    currentOrcamento: '68a07f9b912b4330ecba002e'
+    createdAt: '2025-08-21T01:58:56.915Z',
+    updatedAt: '2025-08-21T01:58:56.915Z',
+    __v: 0
   }
 }
 list property
 {
   isReturnData: true,
   data: {
-    currentProduct: { productType: 'Product', product: '6877fc47e38f7051ee0f8956' },
-    _id: '68a07f99912b4330ecba0024',
+    currentProduct: null,
+    _id: '68a67d60b6b464592248b13d',
     client: '6882747721372a087f3682bc',
     contact: '558498332658@c.us',
-    startTime: '2025-08-16T12:54:49.459Z',
+    startTime: '2025-08-21T01:58:56.912Z',
     endTime: null,
-    sessionId: '558498332658@c.us-1755348889460-222',
-    order: '68a084e6dea212d1f67793af',
+    sessionId: '558498332658@c.us-1755741536912-408',
+    order: null,
     status: 'in_progress',
-    createdAt: '2025-08-16T12:54:49.462Z',
-    updatedAt: '2025-08-16T13:17:26.317Z',
-    __v: 0,
-    currentOrcamento: '68a07f9b912b4330ecba002e'
+    createdAt: '2025-08-21T01:58:56.915Z',
+    updatedAt: '2025-08-21T01:58:56.915Z',
+    __v: 0
   }
 }
 Esse frame já possui options. A list não foi alterada
@@ -93,18 +97,20 @@ getPendingToDelivery
 {
   text: 'Escolha uma das opções abaixo para começarmos:\n' +
     '\n' +
-    '1 - Ver kits e produtos\n' +
-    '2 - Ver último orçamento\n' +
-    '3 - Acompanhar pedido\n',
+    '1 - Montar um kit personalizável\n' +
+    '2 - Ver todos os produtos\n' +
+    '3 - Ver último orçamento\n' +
+    '4 - Acompanhar pedido\n',
   format: 'TEXT'
 }
 pendingToDelivery:  [
   {
     text: 'Escolha uma das opções abaixo para começarmos:\n' +
       '\n' +
-      '1 - Ver kits e produtos\n' +
-      '2 - Ver último orçamento\n' +
-      '3 - Acompanhar pedido\n',
+      '1 - Montar um kit personalizável\n' +
+      '2 - Ver todos os produtos\n' +
+      '3 - Ver último orçamento\n' +
+      '4 - Acompanhar pedido\n',
     format: 'TEXT'
   }
 ]
@@ -115,122 +121,38 @@ optionResolver
 getOption
 {
   id: '1',
-  text: 'Ver kits e produtos\n',
+  text: 'Montar um kit personalizável\n',
   comments: 'Listar todos os produtos disponíveis',
-  onSelect: { jump: 'option:/produtos' }
+  onSelect: { jump: 'option:/kits' }
 }
 VERIFICANDO A ROTA undefined
 jumpResolver
 prepare:  {
   content: { id: 'id' },
   onSelect: { jump: 'option:/acaoProduto' },
-  route: '/lineBot/allProducts',
+  route: '/lineBot/customizableKits',
   subRoute: '/lineBot/selectProduct'
 }
 [DEBUG] Antes do await em OPTION - Conteudo a ser enviado: {}
-[DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/allProducts
+[DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/customizableKits
 [DEBUG] Depois do await - resultado: {
   isReturnData: true,
-  data: [
-    {
-      value: 'Kit Berço percal 230 fios',
-      id: '6877fc47e38f7051ee0f8956'
-    },
-    {
-      value: 'Kit Berço percal 400 fios',
-      id: '6878fea2390fad565747e3b6'
-    },
-    { value: 'Kit Berço linho', id: '6878ff2b9337af0e27cbe33f' },
-    { value: 'Rolo Lateral em Linho', id: '687fe73b9eae629b57efab57' },
-    {
-      value: 'Almofada Personalizada em Linho',
-      id: '687fe74a9eae629b57efab59'
-    },
-    {
-      value: 'Almofada Decorativa em Linho',
-      id: '687fe7519eae629b57efab5b'
-    },
-    {
-      value: 'Protetor de Cabeceira em Linho',
-      id: '687fe7599eae629b57efab5d'
-    },
-    {
-      value: 'Protetor de Peseira em Linho',
-      id: '687fe7639eae629b57efab5f'
-    },
-    { value: 'Mosquiteiro em Linho', id: '687fe76a9eae629b57efab61' },
-    { value: 'Saiote em Linho', id: '687fe7739eae629b57efab63' },
-    { value: 'Colcha em Linho', id: '687fe7b69eae629b57efab65' }
-  ]
+  data: [ { value: 'Kit Berço linho', id: '6878ff2b9337af0e27cbe33f' } ]
 }
 list property
 {
   isReturnData: true,
-  data: [
-    {
-      value: 'Kit Berço percal 230 fios',
-      id: '6877fc47e38f7051ee0f8956'
-    },
-    {
-      value: 'Kit Berço percal 400 fios',
-      id: '6878fea2390fad565747e3b6'
-    },
-    { value: 'Kit Berço linho', id: '6878ff2b9337af0e27cbe33f' },
-    { value: 'Rolo Lateral em Linho', id: '687fe73b9eae629b57efab57' },
-    {
-      value: 'Almofada Personalizada em Linho',
-      id: '687fe74a9eae629b57efab59'
-    },
-    {
-      value: 'Almofada Decorativa em Linho',
-      id: '687fe7519eae629b57efab5b'
-    },
-    {
-      value: 'Protetor de Cabeceira em Linho',
-      id: '687fe7599eae629b57efab5d'
-    },
-    {
-      value: 'Protetor de Peseira em Linho',
-      id: '687fe7639eae629b57efab5f'
-    },
-    { value: 'Mosquiteiro em Linho', id: '687fe76a9eae629b57efab61' },
-    { value: 'Saiote em Linho', id: '687fe7739eae629b57efab63' },
-    { value: 'Colcha em Linho', id: '687fe7b69eae629b57efab65' }
-  ]
+  data: [ { value: 'Kit Berço linho', id: '6878ff2b9337af0e27cbe33f' } ]
 }
 addMessage
 getPendingToDelivery
 {
-  text: 'Escolha uma dentre as opções listadas abaixo.\n' +
-    '\n' +
-    '1 - Kit Berço percal 230 fios\n' +
-    '2 - Kit Berço percal 400 fios\n' +
-    '3 - Kit Berço linho\n' +
-    '4 - Rolo Lateral em Linho\n' +
-    '5 - Almofada Personalizada em Linho\n' +
-    '6 - Almofada Decorativa em Linho\n' +
-    '7 - Protetor de Cabeceira em Linho\n' +
-    '8 - Protetor de Peseira em Linho\n' +
-    '9 - Mosquiteiro em Linho\n' +
-    '10 - Saiote em Linho\n' +
-    '11 - Colcha em Linho\n',
+  text: 'Escolha uma dentre as opções listadas abaixo.\n\n1 - Kit Berço linho\n',
   format: 'TEXT'
 }
 pendingToDelivery:  [
   {
-    text: 'Escolha uma dentre as opções listadas abaixo.\n' +
-      '\n' +
-      '1 - Kit Berço percal 230 fios\n' +
-      '2 - Kit Berço percal 400 fios\n' +
-      '3 - Kit Berço linho\n' +
-      '4 - Rolo Lateral em Linho\n' +
-      '5 - Almofada Personalizada em Linho\n' +
-      '6 - Almofada Decorativa em Linho\n' +
-      '7 - Protetor de Cabeceira em Linho\n' +
-      '8 - Protetor de Peseira em Linho\n' +
-      '9 - Mosquiteiro em Linho\n' +
-      '10 - Saiote em Linho\n' +
-      '11 - Colcha em Linho\n',
+    text: 'Escolha uma dentre as opções listadas abaixo.\n\n1 - Kit Berço linho\n',
     format: 'TEXT'
   }
 ]
@@ -241,10 +163,10 @@ optionResolver
 getOption
 {
   id: '1',
-  text: 'Kit Berço percal 230 fios\n',
+  text: 'Kit Berço linho\n',
   content: {
-    id: { name: 'id', value: '6877fc47e38f7051ee0f8956' },
-    value: 'Kit Berço percal 230 fios'
+    id: { name: 'id', value: '6878ff2b9337af0e27cbe33f' },
+    value: 'Kit Berço linho'
   },
   route: '/lineBot/selectProduct',
   onSelect: { jump: 'option:/acaoProduto' }
@@ -287,39 +209,39 @@ getOption
 VERIFICANDO A ROTA undefined
 jumpResolver
 prepare:  { route: '/lineBot/addToOrcamento' }
-[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: { id: '6877fc47e38f7051ee0f8956' }
+[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: { id: '6878ff2b9337af0e27cbe33f' }
 [DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/addToOrcamento
 [DEBUG] Depois do await - resultado: {
-  _id: '68a07f9b912b4330ecba002e',
   client: '6882747721372a087f3682bc',
-  total: 588000,
+  total: 115000,
+  _id: '68a8a135aec4fe9d5c888058',
   items: [
     {
       itemType: 'Product',
       product: [Object],
-      quantity: 6,
-      _id: '68a07f9b912b4330ecba0031'
+      quantity: 1,
+      _id: '68a8a136aec4fe9d5c88805b'
     }
   ],
-  createdAt: '2025-08-16T12:54:51.646Z',
-  updatedAt: '2025-08-16T13:19:41.694Z',
+  createdAt: '2025-08-22T16:56:21.180Z',
+  updatedAt: '2025-08-22T16:56:23.887Z',
   __v: 1
 }
 list property
 {
-  _id: '68a07f9b912b4330ecba002e',
   client: '6882747721372a087f3682bc',
-  total: 588000,
+  total: 115000,
+  _id: '68a8a135aec4fe9d5c888058',
   items: [
     {
       itemType: 'Product',
       product: [Object],
-      quantity: 6,
-      _id: '68a07f9b912b4330ecba0031'
+      quantity: 1,
+      _id: '68a8a136aec4fe9d5c88805b'
     }
   ],
-  createdAt: '2025-08-16T12:54:51.646Z',
-  updatedAt: '2025-08-16T13:19:41.694Z',
+  createdAt: '2025-08-22T16:56:21.180Z',
+  updatedAt: '2025-08-22T16:56:23.887Z',
   __v: 1
 }
 Esse frame já possui options. A list não foi alterada
@@ -357,9 +279,9 @@ getOption
 VERIFICANDO A ROTA undefined
 jumpResolver
 INFO
-submitData { id: '6877fc47e38f7051ee0f8956' }
+submitData { id: '6878ff2b9337af0e27cbe33f' }
 FrameInfo.extractAttData
-Dados recebidos para extração: { id: '6877fc47e38f7051ee0f8956' }
+Dados recebidos para extração: { id: '6878ff2b9337af0e27cbe33f' }
 Resultado final da extração: {}
 [DEBUG] Antes do await em INFO - Conteudo a ser enviado: { contact: { name: 'Raerio', number: '558498332658@c.us' } }
 addReturnData
@@ -369,11 +291,11 @@ FrameInfo.parserText
 Texto original: Confira os detalhes do seu pedido antes de confirmar:
 
 @resumoPedido
-Dados recebidos para substituir: { '@resumoPedido': '1. 6x Kit Berço percal 230 fios - R$ 5880.00' }
-Substituindo: @resumoPedido -> 1. 6x Kit Berço percal 230 fios - R$ 5880.00
+Dados recebidos para substituir: { '@resumoPedido': '1. 1x Kit Berço linho - R$ 1150.00' }
+Substituindo: @resumoPedido -> 1. 1x Kit Berço linho - R$ 1150.00
 Texto final após substituições: Confira os detalhes do seu pedido antes de confirmar:
 
-1. 6x Kit Berço percal 230 fios - R$ 5880.00
+1. 1x Kit Berço linho - R$ 1150.00
 addMessage
 jumpResolver
 addMessage
@@ -389,7 +311,7 @@ pendingToDelivery:  [
   {
     text: 'Confira os detalhes do seu pedido antes de confirmar:\n' +
       '\n' +
-      '1. 6x Kit Berço percal 230 fios - R$ 5880.00',
+      '1. 1x Kit Berço linho - R$ 1150.00',
     format: 'TEXT'
   },
   {
@@ -523,10 +445,82 @@ VERIFICANDO V {
     }
   ]
 }
-[ROTA] /validateDate - Dados recebidos: { id: '6877fc47e38f7051ee0f8956', date: '18/08/2025' }
+[ROTA] /validateDate - Dados recebidos: { id: '6878ff2b9337af0e27cbe33f', date: '18/08/2025' }
 [ROTA] /validateDate - Data recebida: 18/08/2025
-[ROTA] /validateDate - Resultado: { date: '2025-08-18' }
-VERIFICANDO R { isReturnData: true, date: '2025-08-18' }
+[ROTA] /validateDate - Resultado: { problem: 'PAST_DATE' }
+VERIFICANDO R { isReturnData: true, problem: 'PAST_DATE' }
+addMessage
+addMessage
+getPendingToDelivery
+
+pendingToDelivery:  [
+  {
+    text: 'A data não pode ser uma data passada. Você tem mais *3* tentativas\n\n',
+    format: 'TEXT',
+    type: 'ERROR/NOSHOWOPTION'
+  },
+  ''
+]
+getContact
+receive
+isOpenSupport
+formResolver
+VERIFICANDO O CURRENTINPUT InputForm {
+  id: 'date',
+  text: 'Data: \n',
+  type: undefined,
+  submit: undefined,
+  validates: [ { route: '/lineBot/validateDate', problem: [Array] } ]
+}
+VERIFICANDO V {
+  route: '/lineBot/validateDate',
+  problem: [
+    {
+      type: 'INVALID_DATE_FORMAT',
+      text: 'A data informada não está no formato DD/MM/AAAA.',
+      action: [Object]
+    },
+    {
+      type: 'INVALID_DATE',
+      text: 'A data informada não é válida.',
+      action: [Object]
+    },
+    {
+      type: 'OUT_OF_RANGE',
+      text: 'A data deve estar dentro de 30 dias a partir de hoje.',
+      action: [Object]
+    },
+    {
+      type: 'PAST_DATE',
+      text: 'A data não pode ser uma data passada.',
+      action: [Object]
+    },
+    {
+      type: 'INACTIVE_DAY',
+      text: 'O dia selecionado não aceita agendamentos.',
+      action: [Object]
+    },
+    {
+      type: 'FULL_DAY',
+      text: 'O dia selecionado está completamente agendado.',
+      action: [Object]
+    },
+    {
+      type: 'DAY_OFF',
+      text: 'O dia selecionado é um dia de folga.',
+      action: [Object]
+    },
+    {
+      type: 'NO_APPOINTMENTS',
+      text: 'Não há horários disponíveis para o dia selecionado.',
+      action: [Object]
+    }
+  ]
+}
+[ROTA] /validateDate - Dados recebidos: { id: '6878ff2b9337af0e27cbe33f', date: '22/08/2025' }
+[ROTA] /validateDate - Data recebida: 22/08/2025
+[ROTA] /validateDate - Resultado: { date: '2025-08-22' }
+VERIFICANDO R { isReturnData: true, date: '2025-08-22' }
 jumpResolver
 prepare:  {
   content: { id: 'id' },
@@ -534,54 +528,58 @@ prepare:  {
   route: '/lineBot/availableTimeSlots',
   subRoute: '/lineBot/selectTime'
 }
-[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: { id: '6877fc47e38f7051ee0f8956', date: '18/08/2025' }
+[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: { id: '6878ff2b9337af0e27cbe33f', date: '22/08/2025' }
 [DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/availableTimeSlots
-Data:  18/08/2025
+Data:  22/08/2025
 [DEBUG] Depois do await - resultado: {
   isReturnData: true,
   data: [
-    { id: 1755514800000, value: '08:00 - 08:30' },
-    { id: 1755516600000, value: '08:30 - 09:00' },
-    { id: 1755518400000, value: '09:00 - 09:30' },
-    { id: 1755520200000, value: '09:30 - 10:00' },
-    { id: 1755522000000, value: '10:00 - 10:30' },
-    { id: 1755523800000, value: '10:30 - 11:00' },
-    { id: 1755525600000, value: '11:00 - 11:30' },
-    { id: 1755527400000, value: '11:30 - 12:00' },
-    { id: 1755536400000, value: '14:00 - 14:30' },
-    { id: 1755538200000, value: '14:30 - 15:00' },
-    { id: 1755540000000, value: '15:00 - 15:30' },
-    { id: 1755541800000, value: '15:30 - 16:00' },
-    { id: 1755543600000, value: '16:00 - 16:30' },
-    { id: 1755545400000, value: '16:30 - 17:00' },
-    { id: 1755547200000, value: '17:00 - 17:30' },
-    { id: 1755549000000, value: '17:30 - 18:00' },
-    { id: 1755550800000, value: '18:00 - 18:30' },
-    { id: 1755552600000, value: '18:30 - 19:00' }
+    { id: 1755882000000, value: '14:00 - 14:30' },
+    { id: 1755883800000, value: '14:30 - 15:00' },
+    { id: 1755885600000, value: '15:00 - 15:30' },
+    { id: 1755887400000, value: '15:30 - 16:00' },
+    { id: 1755889200000, value: '16:00 - 16:30' },
+    { id: 1755891000000, value: '16:30 - 17:00' },
+    { id: 1755892800000, value: '17:00 - 17:30' },
+    { id: 1755894600000, value: '17:30 - 18:00' },
+    { id: 1755896400000, value: '18:00 - 18:30' },
+    { id: 1755898200000, value: '18:30 - 19:00' },
+    { id: 1755900000000, value: '19:00 - 19:30' },
+    { id: 1755901800000, value: '19:30 - 20:00' },
+    { id: 1755903600000, value: '20:00 - 20:30' },
+    { id: 1755905400000, value: '20:30 - 21:00' },
+    { id: 1755907200000, value: '21:00 - 21:30' },
+    { id: 1755909000000, value: '21:30 - 22:00' },
+    { id: 1755910800000, value: '22:00 - 22:30' },
+    { id: 1755912600000, value: '22:30 - 23:00' },
+    { id: 1755914400000, value: '23:00 - 23:30' },
+    { id: 1755916200000, value: '23:30 - 00:00' }
   ]
 }
 list property
 {
   isReturnData: true,
   data: [
-    { id: 1755514800000, value: '08:00 - 08:30' },
-    { id: 1755516600000, value: '08:30 - 09:00' },
-    { id: 1755518400000, value: '09:00 - 09:30' },
-    { id: 1755520200000, value: '09:30 - 10:00' },
-    { id: 1755522000000, value: '10:00 - 10:30' },
-    { id: 1755523800000, value: '10:30 - 11:00' },
-    { id: 1755525600000, value: '11:00 - 11:30' },
-    { id: 1755527400000, value: '11:30 - 12:00' },
-    { id: 1755536400000, value: '14:00 - 14:30' },
-    { id: 1755538200000, value: '14:30 - 15:00' },
-    { id: 1755540000000, value: '15:00 - 15:30' },
-    { id: 1755541800000, value: '15:30 - 16:00' },
-    { id: 1755543600000, value: '16:00 - 16:30' },
-    { id: 1755545400000, value: '16:30 - 17:00' },
-    { id: 1755547200000, value: '17:00 - 17:30' },
-    { id: 1755549000000, value: '17:30 - 18:00' },
-    { id: 1755550800000, value: '18:00 - 18:30' },
-    { id: 1755552600000, value: '18:30 - 19:00' }
+    { id: 1755882000000, value: '14:00 - 14:30' },
+    { id: 1755883800000, value: '14:30 - 15:00' },
+    { id: 1755885600000, value: '15:00 - 15:30' },
+    { id: 1755887400000, value: '15:30 - 16:00' },
+    { id: 1755889200000, value: '16:00 - 16:30' },
+    { id: 1755891000000, value: '16:30 - 17:00' },
+    { id: 1755892800000, value: '17:00 - 17:30' },
+    { id: 1755894600000, value: '17:30 - 18:00' },
+    { id: 1755896400000, value: '18:00 - 18:30' },
+    { id: 1755898200000, value: '18:30 - 19:00' },
+    { id: 1755900000000, value: '19:00 - 19:30' },
+    { id: 1755901800000, value: '19:30 - 20:00' },
+    { id: 1755903600000, value: '20:00 - 20:30' },
+    { id: 1755905400000, value: '20:30 - 21:00' },
+    { id: 1755907200000, value: '21:00 - 21:30' },
+    { id: 1755909000000, value: '21:30 - 22:00' },
+    { id: 1755910800000, value: '22:00 - 22:30' },
+    { id: 1755912600000, value: '22:30 - 23:00' },
+    { id: 1755914400000, value: '23:00 - 23:30' },
+    { id: 1755916200000, value: '23:30 - 00:00' }
   ]
 }
 addMessage
@@ -589,48 +587,52 @@ getPendingToDelivery
 {
   text: 'Esses são os horarios disponíveis:\n' +
     '\n' +
-    '1 - 08:00 - 08:30\n' +
-    '2 - 08:30 - 09:00\n' +
-    '3 - 09:00 - 09:30\n' +
-    '4 - 09:30 - 10:00\n' +
-    '5 - 10:00 - 10:30\n' +
-    '6 - 10:30 - 11:00\n' +
-    '7 - 11:00 - 11:30\n' +
-    '8 - 11:30 - 12:00\n' +
-    '9 - 14:00 - 14:30\n' +
-    '10 - 14:30 - 15:00\n' +
-    '11 - 15:00 - 15:30\n' +
-    '12 - 15:30 - 16:00\n' +
-    '13 - 16:00 - 16:30\n' +
-    '14 - 16:30 - 17:00\n' +
-    '15 - 17:00 - 17:30\n' +
-    '16 - 17:30 - 18:00\n' +
-    '17 - 18:00 - 18:30\n' +
-    '18 - 18:30 - 19:00\n',
+    '1 - 14:00 - 14:30\n' +
+    '2 - 14:30 - 15:00\n' +
+    '3 - 15:00 - 15:30\n' +
+    '4 - 15:30 - 16:00\n' +
+    '5 - 16:00 - 16:30\n' +
+    '6 - 16:30 - 17:00\n' +
+    '7 - 17:00 - 17:30\n' +
+    '8 - 17:30 - 18:00\n' +
+    '9 - 18:00 - 18:30\n' +
+    '10 - 18:30 - 19:00\n' +
+    '11 - 19:00 - 19:30\n' +
+    '12 - 19:30 - 20:00\n' +
+    '13 - 20:00 - 20:30\n' +
+    '14 - 20:30 - 21:00\n' +
+    '15 - 21:00 - 21:30\n' +
+    '16 - 21:30 - 22:00\n' +
+    '17 - 22:00 - 22:30\n' +
+    '18 - 22:30 - 23:00\n' +
+    '19 - 23:00 - 23:30\n' +
+    '20 - 23:30 - 00:00\n',
   format: 'TEXT'
 }
 pendingToDelivery:  [
   {
     text: 'Esses são os horarios disponíveis:\n' +
       '\n' +
-      '1 - 08:00 - 08:30\n' +
-      '2 - 08:30 - 09:00\n' +
-      '3 - 09:00 - 09:30\n' +
-      '4 - 09:30 - 10:00\n' +
-      '5 - 10:00 - 10:30\n' +
-      '6 - 10:30 - 11:00\n' +
-      '7 - 11:00 - 11:30\n' +
-      '8 - 11:30 - 12:00\n' +
-      '9 - 14:00 - 14:30\n' +
-      '10 - 14:30 - 15:00\n' +
-      '11 - 15:00 - 15:30\n' +
-      '12 - 15:30 - 16:00\n' +
-      '13 - 16:00 - 16:30\n' +
-      '14 - 16:30 - 17:00\n' +
-      '15 - 17:00 - 17:30\n' +
-      '16 - 17:30 - 18:00\n' +
-      '17 - 18:00 - 18:30\n' +
-      '18 - 18:30 - 19:00\n',
+      '1 - 14:00 - 14:30\n' +
+      '2 - 14:30 - 15:00\n' +
+      '3 - 15:00 - 15:30\n' +
+      '4 - 15:30 - 16:00\n' +
+      '5 - 16:00 - 16:30\n' +
+      '6 - 16:30 - 17:00\n' +
+      '7 - 17:00 - 17:30\n' +
+      '8 - 17:30 - 18:00\n' +
+      '9 - 18:00 - 18:30\n' +
+      '10 - 18:30 - 19:00\n' +
+      '11 - 19:00 - 19:30\n' +
+      '12 - 19:30 - 20:00\n' +
+      '13 - 20:00 - 20:30\n' +
+      '14 - 20:30 - 21:00\n' +
+      '15 - 21:00 - 21:30\n' +
+      '16 - 21:30 - 22:00\n' +
+      '17 - 22:00 - 22:30\n' +
+      '18 - 22:30 - 23:00\n' +
+      '19 - 23:00 - 23:30\n' +
+      '20 - 23:30 - 00:00\n',
     format: 'TEXT'
   }
 ]
@@ -641,24 +643,216 @@ optionResolver
 getOption
 {
   id: '1',
-  text: '08:00 - 08:30\n',
-  content: { id: { name: 'id', value: 1755514800000 }, value: '08:00 - 08:30' },
+  text: '14:00 - 14:30\n',
+  content: { id: { name: 'id', value: 1755882000000 }, value: '14:00 - 14:30' },
   route: '/lineBot/selectTime',
   onSelect: { jump: 'info:/resumoAgendamento' }
 }
 VERIFICANDO A ROTA /lineBot/selectTime
-Id:  1755514800000
+Id:  1755882000000
 Contato:  { name: 'Raerio', number: '558498332658@c.us' }
 jumpResolver
 INFO
-submitData { id: 1755514800000, date: '18/08/2025' }
+submitData { id: 1755882000000, date: '22/08/2025' }
 FrameInfo.extractAttData
-Dados recebidos para extração: { id: 1755514800000, date: '18/08/2025' }
-Extraído: id = 1755514800000
-Extraído: date = 18/08/2025
-Resultado final da extração: { id: 1755514800000, date: '18/08/2025' }
+Dados recebidos para extração: { id: 1755882000000, date: '22/08/2025' }
+Extraído: id = 1755882000000
+Extraído: date = 22/08/2025
+Resultado final da extração: { id: 1755882000000, date: '22/08/2025' }
 [DEBUG] Antes do await em INFO - Conteudo a ser enviado: {
-  id: 1755514800000,
-  date: '18/08/2025',
+  id: 1755882000000,
+  date: '22/08/2025',
   contact: { name: 'Raerio', number: '558498332658@c.us' }
 }
+addReturnData
+addAttInReturnData
+FrameInfo.getResume
+FrameInfo.parserText
+Texto original: Esse é o resumo do seu agendamento:
+
+@resumeAppointment
+Dados recebidos para substituir: {
+  '@resumeAppointment': 'Data: 22/08/2025\n\n            Horario: 14:00-14:30'
+}
+Substituindo: @resumeAppointment -> Data: 22/08/2025
+
+            Horario: 14:00-14:30
+Texto final após substituições: Esse é o resumo do seu agendamento:
+
+Data: 22/08/2025
+
+            Horario: 14:00-14:30
+addMessage
+jumpResolver
+addMessage
+getPendingToDelivery
+{
+  text: 'Você deseja confirmar o agendamento?\n' +
+    '\n' +
+    '1 - Sim, confirmar\n' +
+    '2 - Não, quero falar com um atendente\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Esse é o resumo do seu agendamento:\n' +
+      '\n' +
+      'Data: 22/08/2025\n' +
+      '\n' +
+      '            Horario: 14:00-14:30',
+    format: 'TEXT'
+  },
+  {
+    text: 'Você deseja confirmar o agendamento?\n' +
+      '\n' +
+      '1 - Sim, confirmar\n' +
+      '2 - Não, quero falar com um atendente\n',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+isOpenSupport
+optionResolver
+getOption
+{
+  id: '1',
+  text: 'Sim, confirmar\n',
+  comments: 'Segue para finalizar o atendimento',
+  onSelect: { jump: 'info:/finalAgendamento' }
+}
+VERIFICANDO A ROTA undefined
+jumpResolver
+INFO
+submitData { id: 1755882000000, date: '22/08/2025' }
+FrameInfo.getResume
+FrameInfo.parserText
+Texto original: Agendamento confirmado! Estamos ansiosos para atendê-lo!
+Dados recebidos para substituir: {
+  '@resumeAppointment': 'Data: 22/08/2025\n\n            Horario: 14:00-14:30'
+}
+Substituindo: @resumeAppointment -> Data: 22/08/2025
+
+            Horario: 14:00-14:30
+Texto final após substituições: Agendamento confirmado! Estamos ansiosos para atendê-lo!
+addMessage
+jumpResolver
+INFO
+submitData { id: 1755882000000, date: '22/08/2025' }
+FrameInfo.extractAttData
+Dados recebidos para extração: { id: 1755882000000, date: '22/08/2025' }
+Resultado final da extração: {}
+[DEBUG] Antes do await em INFO - Conteudo a ser enviado: { contact: { name: 'Raerio', number: '558498332658@c.us' } }
+FrameInfo.getResume
+FrameInfo.parserText
+Texto original: Agradecemos pelo seu contato! Estamos à disposição para quaisquer dúvidas.
+
+Siga-nos em: @katelieenxovais
+Dados recebidos para substituir: {
+  '@resumeAppointment': 'Data: 22/08/2025\n\n            Horario: 14:00-14:30'
+}
+Substituindo: @resumeAppointment -> Data: 22/08/2025
+
+            Horario: 14:00-14:30
+Texto final após substituições: Agradecemos pelo seu contato! Estamos à disposição para quaisquer dúvidas.
+
+Siga-nos em: katelieenxovais
+addMessage
+closeSupport
+isOpenSupport
+true
+isOpenSupport
+save
+closeSupport
+isOpenSupport
+false
+isOpenSupport
+getPendingToDelivery
+{
+  text: 'Agradecemos pelo seu contato! Estamos à disposição para quaisquer dúvidas.\n' +
+    '\n' +
+    'Siga-nos em: katelieenxovais',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Agendamento confirmado! Estamos ansiosos para atendê-lo!',
+    format: 'TEXT'
+  },
+  {
+    text: 'Agradecemos pelo seu contato! Estamos à disposição para quaisquer dúvidas.\n' +
+      '\n' +
+      'Siga-nos em: katelieenxovais',
+    format: 'TEXT'
+  }
+]
+getContact
+receive
+!Support
+openSupport
+addMessage
+jumpResolver
+prepare:  { route: '/lineBot/initSuport' }
+[DEBUG] Antes do await em OPTION - Conteudo a ser enviado: {}
+[DEBUG] Antes do await em OPTION - Rota para onde foi enviada: /lineBot/initSuport
+[DEBUG] Dados recebidos na rota /initSuport: { name: 'Raerio', number: '558498332658@c.us' }
+[DEBUG] Depois do await - resultado: {
+  isReturnData: true,
+  data: {
+    client: '6882747721372a087f3682bc',
+    contact: '558498332658@c.us',
+    currentProduct: null,
+    startTime: '2025-08-22T16:57:20.200Z',
+    endTime: null,
+    sessionId: '558498332658@c.us-1755881840200-826',
+    order: null,
+    _id: '68a8a170aec4fe9d5c8880b9',
+    status: 'in_progress',
+    createdAt: '2025-08-22T16:57:20.200Z',
+    updatedAt: '2025-08-22T16:57:20.200Z',
+    __v: 0
+  }
+}
+list property
+{
+  isReturnData: true,
+  data: {
+    client: '6882747721372a087f3682bc',
+    contact: '558498332658@c.us',
+    currentProduct: null,
+    startTime: '2025-08-22T16:57:20.200Z',
+    endTime: null,
+    sessionId: '558498332658@c.us-1755881840200-826',
+    order: null,
+    _id: '68a8a170aec4fe9d5c8880b9',
+    status: 'in_progress',
+    createdAt: '2025-08-22T16:57:20.200Z',
+    updatedAt: '2025-08-22T16:57:20.200Z',
+    __v: 0
+  }
+}
+Esse frame já possui options. A list não foi alterada
+addMessage
+getPendingToDelivery
+{
+  text: 'Gostaria de iniciar um atendimento conosco?\n' +
+    '\n' +
+    '1 - Sim, vamos lá!\n' +
+    '2 - Não por agora, obrigado\n' +
+    '3 - Como funciona?\n',
+  format: 'TEXT'
+}
+pendingToDelivery:  [
+  {
+    text: 'Olá! Seja muito bem-vindo ao atendimento automático do Kateliê.\n',
+    format: 'TEXT'
+  },
+  {
+    text: 'Gostaria de iniciar um atendimento conosco?\n' +
+      '\n' +
+      '1 - Sim, vamos lá!\n' +
+      '2 - Não por agora, obrigado\n' +
+      '3 - Como funciona?\n',
+    format: 'TEXT'
+  }
+]

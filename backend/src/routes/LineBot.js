@@ -20,6 +20,16 @@ router.put('/exitSuport', async (req, res) => {
     res.send({ "isReturnData": false});
 })
 
+router.put('/customizableKits', async (req, res) =>{
+    const result = await oracle.sendData("/lineBot/customizableKits");                              
+    res.send({ "isReturnData": true, "data": result });
+})
+
+router.put('/nonCustomizableKits', async (req, res) =>{
+    const result = await oracle.sendData("/lineBot/nonCustomizableKits");
+    res.send({ "isReturnData": true, "data": result });
+})
+
 router.put('/allProducts', async (req, res) =>{
     const result = await oracle.sendData("/lineBot/allProducts");                              
     res.send({ "isReturnData": true, "data": result });

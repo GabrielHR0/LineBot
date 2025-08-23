@@ -42,20 +42,54 @@
         }
       },
       {
+        "id": "/start2",
+        "type": "OPTION",
+        "text": "Gostaria de iniciar um atendimento conosco?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Sim, vamos lá!\n",
+            "comments": "inicializa o atendimento",
+            "onSelect": {
+              "jump": "option:/main"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Não por agora, obrigado\n",
+            "comments": "Finaliza o atendimento",
+            "onSelect": {
+              "jump": "info:/exit"
+            }
+          }
+        ],
+        "prepare": {
+          "route": "/lineBot/initSuport"
+        }
+      },
+      {
         "id": "/main",
         "type": "OPTION",
         "text": "Escolha uma das opções abaixo para começarmos:\n\n",
         "list": [
           {
             "id": "1",
-            "text": "Ver kits e produtos\n",
+            "text": "Montar um kit personalizável\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver todos os produtos\n",
             "comments": "Listar todos os produtos disponíveis",
             "onSelect": {
               "jump": "option:/produtos"
             }
           },
           {
-            "id": "2",
+            "id": "3",
             "text": "Ver último orçamento\n",
             "comments": "Consultar seu último orçamento",
             "onSelect": {
@@ -63,7 +97,7 @@
             }
           },
           {
-            "id": "3",
+            "id": "4",
             "text": "Acompanhar pedido\n",
             "comments": "Consultar status de pedidos",
             "onSelect": {
@@ -79,14 +113,22 @@
         "list": [
           {
             "id": "1",
-            "text": "Ver kits e produtos\n",
+            "text": "Montar um kit personalizável\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver todos os produtos\n",
             "comments": "Listar todos os produtos disponíveis",
             "onSelect": {
               "jump": "option:/produtos"
             }
           },
           {
-            "id": "2",
+            "id": "3",
             "text": "Acompanhar pedido\n",
             "comments": "Consultar status de pedidos",
             "onSelect": {
@@ -94,11 +136,42 @@
             }
           },
           {
-            "id": "3",
+            "id": "4",
             "text": "Encerrar atendimento\n",
             "comments": "Finaliza o atendimento",
             "onSelect": {
               "jump": "info:/exit"
+            }
+          }
+        ]
+      },
+            {
+        "id": "/categoriaProduto",
+        "type": "OPTION",
+        "text": "Escolha outra opção para começarmos:\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "kits personalizáveis\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver todos os produtos\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/produtos"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar\n",
+            "comments": "Finaliza o atendimento",
+            "onSelect": {
+              "jump": "option:/posOrcamento"
             }
           }
         ]
@@ -141,6 +214,22 @@
             }
           }
         ]
+      },
+      {
+        "id": "/editarOrcamento",
+        "type": "OPTION",
+        "text": "Selecione um produto para ser removido do seu orçamento: \n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "info:/verOrcamento"
+          },
+          "route": "/lineBot/orcamento/getProducts",
+          "subRoute": "/lineBot/orcamento/removeProduct"
+        }
       },
       {
       "id": "/confirmacaoPedido",
@@ -243,6 +332,22 @@
           }
         ]
       },
+            {
+        "id": "/kits",
+        "type": "OPTION",
+        "text": "Escolha uma dentre as opções listadas abaixo.\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "option:/acaoProduto"
+          },
+          "route": "/lineBot/customizableKits",
+          "subRoute": "/lineBot/selectProduct"
+        }
+      },
       {
         "id": "/produtos",
         "type": "OPTION",
@@ -255,7 +360,7 @@
           "onSelect": {
             "jump": "option:/acaoProduto"
           },
-          "route": "/lineBot/allProducts",
+          "route": "/lineBot/nonCustomizableKits",
           "subRoute": "/lineBot/selectProduct"
         }
       },
@@ -825,7 +930,7 @@
         "id": "/tutorial",
         "type": "INFO",
         "text": "Este atendimento foi criado para facilitar a criação do seu orçamento na Kateliê Enxovais!\n\nAqui você pode:\n\n• 📝 Simular combinações de produtos\n• 💰 Ver valores instantaneamente\n• 🛒 Revisar orçamentos anteriores\n\nComece escolhendo os itens que deseja incluir no seu enxoval. O sistema mostrará automaticamente:\n\n🔹 Opções disponíveis\n🔹 Preços atualizados\n🔹 Validade do orçamento\n\nSe já tiver um orçamento em andamento, você pode retomá-lo a qualquer momento.\n\nPronto para começar?",
-        "jump": "option:/start"
+        "jump": "option:/start2"
       }
     ]
   }

@@ -1,0 +1,93 @@
+[0822/194742.786:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yR/r/ilWfvxKhQWB.js (114)
+[0822/194742.848:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Feature xr-spatial-tracking's parameters are ignored.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'attribution-reporting'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'compute-pressure'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'interest-cohort'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'private-state-token-issuance'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'shared-storage'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'shared-storage-select-url'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'private-state-token-redemption'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'unload'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'window-management'.", source:  (0)
+[0822/194742.849:INFO:CONSOLE(0)] "Document-Policy HTTP header: Unrecognized document policy feature name include-js-call-stacks-in-crash-reports.", source: https://web.whatsapp.com/ (0)
+[0822/194805.426:ERROR:entry_impl.cc(1072)] No file for 8000007d
+[0822/194805.429:ERROR:entry_impl.cc(1072)] No file for 80000017
+[0822/194805.430:ERROR:entry_impl.cc(1072)] No file for 80000018
+[0822/194805.765:ERROR:entry_impl.cc(1072)] No file for 8000007f
+[0822/194805.765:ERROR:entry_impl.cc(1072)] No file for 8000001b
+[0822/194808.563:ERROR:entry_impl.cc(1072)] No file for 8000001d
+[0822/194808.572:INFO:CONSOLE(1)] "Uncaught NetworkError: Failed to execute 'importScripts' on 'WorkerGlobalScope': The script at 'https://static.whatsapp.net/rsrc.php/v4/yD/r/r0GOPH0tQMU.js' failed to load.", source: https://web.whatsapp.com/static_resources/webworker_v1/init_script/?__hs=20322.HYP%3Awhatsapp_comet_pkg.2.1...0&__spin_r=1026231250&__spin_b=trunk&__spin_t=1755902863 (1)
+[0822/194808.901:ERROR:entry_impl.cc(1072)] No file for 8000003f
+[0822/194810.495:ERROR:entry_impl.cc(1072)] No file for 8000001e
+[0822/194810.567:ERROR:entry_impl.cc(1072)] No file for 8000001f
+[0822/194810.568:ERROR:entry_impl.cc(1072)] No file for 80000021
+[0822/194810.568:ERROR:entry_impl.cc(1072)] No file for 80000020
+[0822/194810.569:ERROR:entry_impl.cc(1072)] No file for 80000023
+[0822/194810.569:ERROR:entry_impl.cc(1072)] No file for 80000022
+[0822/194810.572:ERROR:entry_impl.cc(1072)] No file for 80000025
+[0822/194810.577:ERROR:entry_impl.cc(1072)] No file for 80000024
+[0822/194810.577:ERROR:entry_impl.cc(1072)] No file for 80000026
+[0822/194810.577:ERROR:entry_impl.cc(1072)] No file for 80000027
+[0822/194810.578:ERROR:entry_impl.cc(1072)] No file for 80000029
+[0822/194810.578:ERROR:entry_impl.cc(1072)] No file for 8000002a
+[0822/194810.578:ERROR:entry_impl.cc(1072)] No file for 80000028
+[0822/194810.578:ERROR:entry_impl.cc(1072)] No file for 8000002b
+[0822/194810.578:ERROR:entry_impl.cc(1072)] No file for 8000002c
+[0822/194810.578:ERROR:entry_impl.cc(1072)] No file for 8000002d
+[0822/194810.579:ERROR:entry_impl.cc(1072)] No file for 8000002e
+[0822/194810.579:ERROR:entry_impl.cc(1072)] No file for 8000002f
+[0822/194810.579:ERROR:entry_impl.cc(1072)] No file for 80000030
+[0822/194810.579:ERROR:entry_impl.cc(1072)] No file for 80000031
+[0822/194810.592:ERROR:entry_impl.cc(1072)] No file for 80000032
+[0822/194810.592:ERROR:entry_impl.cc(1072)] No file for 80000033
+[0822/194810.592:ERROR:entry_impl.cc(1072)] No file for 80000034
+[0822/194810.592:ERROR:entry_impl.cc(1072)] No file for 80000036
+[0822/194810.593:ERROR:entry_impl.cc(1072)] No file for 80000035
+[0822/194810.593:ERROR:entry_impl.cc(1072)] No file for 80000038
+[0822/194810.609:ERROR:entry_impl.cc(1072)] No file for 80000037
+[0822/194810.610:ERROR:entry_impl.cc(1072)] No file for 80000039
+[0822/194810.610:ERROR:entry_impl.cc(1072)] No file for 8000003a
+[0822/194810.621:ERROR:entry_impl.cc(1072)] No file for 8000003b
+[0822/194810.621:ERROR:entry_impl.cc(1072)] No file for 8000003c
+[0822/194810.622:ERROR:entry_impl.cc(1072)] No file for 8000003d
+[0822/194810.623:ERROR:entry_impl.cc(1072)] No file for 8000003e
+[0822/194810.626:ERROR:entry_impl.cc(1072)] No file for 80000040
+[0822/194810.629:ERROR:entry_impl.cc(1072)] No file for 80000041
+[0822/194810.642:ERROR:entry_impl.cc(1072)] No file for 80000042
+[0822/194810.642:ERROR:entry_impl.cc(1072)] No file for 80000044
+[0822/194810.642:ERROR:entry_impl.cc(1072)] No file for 80000043
+[0822/194810.655:ERROR:entry_impl.cc(1072)] No file for 80000047
+[0822/194810.655:ERROR:entry_impl.cc(1072)] No file for 80000046
+[0822/194810.655:ERROR:entry_impl.cc(1072)] No file for 80000048
+[0822/194810.655:ERROR:entry_impl.cc(1072)] No file for 80000045
+[0822/194810.655:ERROR:entry_impl.cc(1072)] No file for 8000004c
+[0822/194810.655:ERROR:entry_impl.cc(1072)] No file for 8000004a
+[0822/194810.656:ERROR:entry_impl.cc(1072)] No file for 8000004b
+[0822/194810.657:ERROR:entry_impl.cc(1072)] No file for 80000049
+[0822/194810.658:ERROR:entry_impl.cc(1072)] No file for 8000004e
+[0822/194810.658:ERROR:entry_impl.cc(1072)] No file for 8000004f
+[0822/194810.666:ERROR:entry_impl.cc(1072)] No file for 80000052
+[0822/194810.667:ERROR:entry_impl.cc(1072)] No file for 80000051
+[0822/194810.669:ERROR:entry_impl.cc(1072)] No file for 80000050
+[0822/194810.671:ERROR:entry_impl.cc(1072)] No file for 80000053
+[0822/194810.676:ERROR:entry_impl.cc(1072)] No file for 80000055
+[0822/194810.677:ERROR:entry_impl.cc(1072)] No file for 80000054
+[0822/194810.680:ERROR:entry_impl.cc(1072)] No file for 80000056
+[0822/194810.681:ERROR:entry_impl.cc(1072)] No file for 80000057
+[0822/194810.681:ERROR:entry_impl.cc(1072)] No file for 80000058
+[0822/194827.169:ERROR:entry_impl.cc(1072)] No file for 8000005a
+[0822/194830.187:ERROR:entry_impl.cc(1072)] No file for 80000060
+[0822/194832.986:INFO:CONSOLE(76)] "ErrorUtils caught an error:
+
+Converting to a string will drop content data. Hash="undefined" Translation="{author} adicionou o grupo {groups}" Content="{"key":null,"ref":null,"props":{"contact":{"id":"558499276552@c.us","type":"in","isBusiness":false,"isEnterprise":false,"isSmb":false,"textStatusLastUpdateTime":-1,"syncToAddressbook":false},"showNotifyName":true,"elevatedPushNamesEnabled":true,"onCl" (type=object,Object)
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. [object Object]", source: https://static.whatsapp.net/rsrc.php/v4/yh/r/mUga8oWSrvq.js (76)
+[0822/194833.248:ERROR:entry_impl.cc(1072)] No file for 80000061
+[0822/194833.887:ERROR:entry_impl.cc(1072)] No file for 80000063
+[0822/194833.888:ERROR:entry_impl.cc(1072)] No file for 80000062
+[0822/194928.607:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yR/r/ilWfvxKhQWB.js (114)
+[0822/195308.209:INFO:CONSOLE(901)] "Failed to parse video contentType: video/mp4; codecs=avc1.42000a", source: https://static.whatsapp.net/rsrc.php/v4iiPx4/yt/l/pt_BR-j/8fJzIEoPCwW.js (901)
+[0822/195308.209:INFO:CONSOLE(901)] "Failed to parse video contentType: video/mp4; codecs=hev1.1.6.L93.B0", source: https://static.whatsapp.net/rsrc.php/v4iiPx4/yt/l/pt_BR-j/8fJzIEoPCwW.js (901)
+[0822/195454.116:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yR/r/ilWfvxKhQWB.js (114)
+[0822/201748.589:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yR/r/ilWfvxKhQWB.js (114)
+[0822/202943.163:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yR/r/ilWfvxKhQWB.js (114)
