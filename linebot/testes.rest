@@ -181,7 +181,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/lineBot/orcamento/getProducts
+PUT http://localhost:8080/lineBot/individualProducts
 Content-Type: application/json
 
 {

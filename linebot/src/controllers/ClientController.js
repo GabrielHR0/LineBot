@@ -42,7 +42,8 @@ class ClientController {
             if (!client) {
                 return { 
                     notification: 'Cliente não encontrado',
-                    orcamento: null
+                    orcamento: null,
+                    problem: 'CLIENT_NOT_FOUND'
                 };
             }
 
@@ -51,7 +52,8 @@ class ClientController {
             if (!orcamento) {
                 return {
                     notification: 'Nenhum orçamento salvo anteriormente foi encontrado para este cliente',
-                    orcamento: null
+                    orcamento: null,
+                    problem: 'ORCAMENTO_NOT_FOUND'
                 };
             }
 

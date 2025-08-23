@@ -162,4 +162,20 @@ router.put('/resumeAppointment', async (req, res) => {
     res.send({ "isReturnData": true, data: result });
 });
 
+router.put('/editLastOrcamento', async (req, res) => {
+    const { contact } = req.body;
+    const result = await oracle.sendData('/lineBot/editLastOrcamento', { contact });
+    res.send({ "isReturnData": true, data: result });
+});
+
+router.put('/getKits', async (req, res) =>{
+    const result = await oracle.sendData("/lineBot/getKits");                              
+    res.send({ "isReturnData": true, "data": result });
+});
+
+router.put('/individualProducts', async (req, res) =>{
+    const result = await oracle.sendData("/lineBot/individualProducts");
+    res.send({ "isReturnData": true, "data": result });
+});
+
 module.exports = router;

@@ -124,6 +124,9 @@ class Bot {
 
             const prepare = contact.support.currentFrame.prepare;
             console.log("submitData", contact.support.submitData);
+
+            let jump = contact.support.currentFrame.jump;
+
             let dataToSubmit;
             if (!!prepare) {
 
@@ -141,12 +144,13 @@ class Bot {
                     contact.support.resetReturnData();
 
                     contact.support.addReturnData(r.data);
-
+                    if(r.data?.problem){
+                        jump = prepare.problem.jump;
+                    }
                 }
             };
 
             text = contact.support.currentFrame.getResume(contact.support.returnData)
-            let jump = contact.support.currentFrame.jump
 
             contact.support.addCurrentMessage({ text: text, format: "TEXT" })
             

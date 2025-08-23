@@ -40,7 +40,7 @@ class ProductController {
         })
     }
 
-    async getNonCustomizableKits() {
+    async getNonCustomizableProducts() {
         return await Product.find({
             isActive: true,
             isSalable : true,

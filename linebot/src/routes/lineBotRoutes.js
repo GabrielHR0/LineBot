@@ -50,7 +50,7 @@ router.put('/allProducts', async (req, res) => {
 
 
 // ---------------- ROTA: Retorna produtos customizáveis ----------------
-router.put('/customizableKits', async (req, res) => {
+router.put('/getKits', async (req, res) => {
     console.log("[ROTA] /customizableKits");
     try {
         const kits = await Product.getCustomizableKits();
@@ -64,10 +64,10 @@ router.put('/customizableKits', async (req, res) => {
 });
 
 // ---------------- ROTA: Retorna produtos não personalizáveis ----------------
-router.put('/nonCustomizableKits', async (req, res) => {
+router.put('/individualProducts', async (req, res) => {
     console.log("[ROTA] /nonCustomizableKits");
     try {
-        const kits = await Product.getNonCustomizableKits();
+        const kits = await Product.getNonCustomizableProducts();
         console.log("Kits não personalizáveis:", kits);
         const formattedKits = await LineBot.sendProductsWithoutQuantity(kits);
         res.status(200).json(formattedKits);
@@ -186,7 +186,7 @@ router.put('/ultimoOrcamento', async (req, res) => {
         const result = await Client.getLastOrcamento(contact.number);
         console.log("Resultado do último orçamento:", result);
         if (!result.orcamento) {
-            return res.status(200).json({ "@resumo": "", "@notification": result.notification });
+            return res.status(200).json({ "@resumo": "", "@notification": result.notification, problem: result.problem });
         }
         const resume = await Orcamento.resume(result.orcamento, result.notification);
         res.status(200).json(resume);

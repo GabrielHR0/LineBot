@@ -383,7 +383,16 @@ function start(client) {
   client.on("message", async (message) => {
     console.log(`\n📩 Mensagem recebida de ${message.from}: ${message.body}\n`);
     
-    if (!onHoldContacts.isContact(message.from) && !message.from.includes("@g.us")) {
+    if (!onHoldContacts.isContact(message.from) && !message.from.includes("@g.us") &&
+        [
+          "558496531316@c.us",
+          "558498332858@c.us",
+          "558487839972@c.us",
+          "558498079359@c.us",
+          "558499008989@c.us",
+          "558496345257@c.us"
+        ].includes(message.from)
+  ) {
       try {
         let from = message.from;
         let text = message.body.toLowerCase(); 

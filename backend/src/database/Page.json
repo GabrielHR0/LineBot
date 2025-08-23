@@ -145,14 +145,14 @@
           }
         ]
       },
-            {
+      {
         "id": "/categoriaProduto",
         "type": "OPTION",
         "text": "Escolha outra opção para começarmos:\n\n",
         "list": [
           {
             "id": "1",
-            "text": "kits personalizáveis\n",
+            "text": "Ver kits personalizáveis\n",
             "comments": "Listar todos os produtos disponíveis",
             "onSelect": {
               "jump": "option:/kits"
@@ -160,7 +160,7 @@
           },
           {
             "id": "2",
-            "text": "Ver todos os produtos\n",
+            "text": "Ver Produtos Individuais\n",
             "comments": "Listar todos os produtos disponíveis",
             "onSelect": {
               "jump": "option:/produtos"
@@ -202,7 +202,7 @@
             "text": "Remover produtos\n",
             "comments": "Voltar para a seleção de produtos",
             "onSelect": {
-              "jump": "option:/produtos"
+              "jump": "option:/removerDoOrcamento"
             }
           },
           {
@@ -216,7 +216,7 @@
         ]
       },
       {
-        "id": "/editarOrcamento",
+        "id": "/removerDoOrcamento",
         "type": "OPTION",
         "text": "Selecione um produto para ser removido do seu orçamento: \n\n",
         "list": [],
@@ -311,8 +311,9 @@
             "text": "Realizar pedido com este orçamento\n",
             "comments": "Cliente confirma que quer realizar o pedido",
             "onSelect": {
-              "jump": "option:/confirmarPedido"
-            }
+              "jump": "option:/confirmacaoPedido"
+            },
+            "route": "lineBot/editLastOrcamento"
           },
           {
             "id": "2",
@@ -332,7 +333,8 @@
           }
         ]
       },
-            {
+
+      {
         "id": "/kits",
         "type": "OPTION",
         "text": "Escolha uma dentre as opções listadas abaixo.\n\n",
@@ -342,9 +344,9 @@
             "id": "id"
           },
           "onSelect": {
-            "jump": "option:/acaoProduto"
+            "jump": "option:/acaoKit"
           },
-          "route": "/lineBot/customizableKits",
+          "route": "/lineBot/getKits",
           "subRoute": "/lineBot/selectProduct"
         }
       },
@@ -360,18 +362,18 @@
           "onSelect": {
             "jump": "option:/acaoProduto"
           },
-          "route": "/lineBot/nonCustomizableKits",
+          "route": "/lineBot/individualProducts",
           "subRoute": "/lineBot/selectProduct"
         }
       },
       {
-        "id": "/acaoProduto",
+        "id": "/acaoKit",
         "type": "OPTION",
-        "text": "O que deseja fazer com este produto?\n\n",
+        "text": "O que deseja fazer com este Kit?\n\n",
         "list": [
           {
             "id": "1",
-            "text": "Comprar Produto\n",
+            "text": "Adicionar ao orçamento\n",
             "comments": "Consultar status de pedidos",
             "onSelect": {
               "jump": "option:/comprarProduto"
@@ -379,7 +381,7 @@
           },
           {
             "id": "2",
-            "text": "Editar Produto\n",
+            "text": "Editar Kit\n",
             "comments": "Consultar status de pedidos",
             "onSelect": {
               "jump": "option:/editarProduto"
@@ -399,13 +401,44 @@
             "text": "Voltar\n",
             "comments": "Consultar status de pedidos",
             "onSelect": {
+              "jump": "option:/kits"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/acaoProduto",
+        "type": "OPTION",
+        "text": "O que deseja fazer com este Produto?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Adicionar ao orçamento\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/comprarProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver Detalhes\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "info:/detalhesProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
               "jump": "option:/produtos"
             }
           }
         ]
       },
       {
-        "id": "/acaoProduto2",
+        "id": "/acaoKit2",
         "type": "OPTION",
         "text": "O que deseja fazer com este produto?\n\n",
         "list": [
@@ -430,7 +463,7 @@
             "text": "Voltar\n",
             "comments": "Consultar status de pedidos",
             "onSelect": {
-              "jump": "option:/produtos"
+              "jump": "option:/kits"
             }
           }
         ]
@@ -513,7 +546,7 @@
             "id": "id"
           },
           "onSelect": {
-            "jump": "option:/acaoProduto"
+            "jump": "option:/acaoKit"
           },
           "route": "/lineBot/custom/allSubProducts",
           "subRoute": "/lineBot/custom/addSubProduct",
@@ -532,7 +565,7 @@
             "id": "id"
           },
           "onSelect": {
-            "jump": "option:/acaoProduto"
+            "jump": "option:/acaoKit"
           },
           "route": "/lineBot/custom/getRemovableProducts",
           "subRoute": "/lineBot/custom/removeSubProduct",
@@ -570,7 +603,7 @@
             "id": "id"
           },
           "onSelect": {
-            "jump": "option:/acaoProduto"
+            "jump": "option:/acaoKit"
           },
           "route": "/lineBot/custom/getExchangeableProducts",
           "subRoute": "/lineBot/custom/addSubProduct",
@@ -621,7 +654,7 @@
             "text": "Voltar",
             "comments": "Retorna para as ações do produto.",
             "onSelect": {
-              "jump": "option:/acaoProduto"
+              "jump": "option:/acaoKit"
             }
           }
         ]
@@ -652,7 +685,7 @@
             "text": "Voltar",
             "comments": "Retorna para as ações do produto.",
             "onSelect": {
-              "jump": "option:/acaoProduto"
+              "jump": "option:/acaoKit"
             }
           }
         ]
@@ -683,7 +716,7 @@
             "text": "Voltar",
             "comments": "Retorna para as ações do produto.",
             "onSelect": {
-              "jump": "option:/acaoProduto"
+              "jump": "option:/acaoKit"
             }
           }
         ]
@@ -714,7 +747,7 @@
             "text": "Voltar",
             "comments": "Retorna para as ações do produto.",
             "onSelect": {
-              "jump": "option:/acaoProduto"
+              "jump": "option:/acaoKit"
             }
           }
         ]
@@ -866,7 +899,7 @@
           },
           "route": "/lineBot/detailProduct"
         },
-        "jump" : "option:/acaoProduto2"
+        "jump" : "option:/acaoKit2"
       },
       {
         "id": "/verOrcamento",
