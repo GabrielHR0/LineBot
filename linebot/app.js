@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const lineBotRoutes = require('./src/routes/lineBotRoutes')
 const ProductRoutes = require('./src/routes/ProductRoutes')
 const SubProductRoutes = require('./src/routes/SubProductRoutes')
+const GroupRoutes = require('./src/routes/GroupRoutes')
 
 
 const middleware = express();
@@ -13,8 +14,9 @@ middleware.use(cors({}));
 middleware.use(morgan('dev'));
 
 middleware.use('/lineBot', lineBotRoutes);
-middleware.use('/Product', ProductRoutes);
-middleware.use('/SubProduct', SubProductRoutes);
+middleware.use('/products', ProductRoutes);
+middleware.use('/subProducts', SubProductRoutes);
+middleware.use('/groups', GroupRoutes);
 
 
 //Heath check

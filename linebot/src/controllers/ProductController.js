@@ -25,6 +25,10 @@ class ProductController {
         }
     } 
 
+    async getAll(){
+        return Product.find();
+    }
+
     async getsalableProducts(){
         return Product.find({isActive: true, isSalable : true});
     }

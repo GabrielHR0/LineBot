@@ -93,7 +93,6 @@ class SuportController {
       model: 'Orcamento',
       populate: {
         path: 'items.product',
-        model: 'Product' || 'CustomProduct',
       }
     });
 

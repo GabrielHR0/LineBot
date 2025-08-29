@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const GroupSchema = new mongoose.Schema({
+    key: {
+        type: String,
+        trim: true,
+        required: true,
+    },
     name : {
         type : String,
         trim : true,
@@ -10,10 +15,7 @@ const GroupSchema = new mongoose.Schema({
         type : String,
         trim : true,
     },
-    subGroups: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Group'
-    }]
+
 })
 
 module.exports = mongoose.model('Group', GroupSchema); 

@@ -339,6 +339,7 @@ router.put('/previewOrder', async (req, res) => {
     const { contact } = req.body;
     const suport = await Suport.getSuportByContact(contact.number);
     const orcamento = await Suport.getCurrentOrcamento(suport);
+    console.log('Items orçamento:', orcamento.items);
     const orderPreview = await Order.createPreview(orcamento);
     res.send({"@resumoPedido": orderPreview});
 });

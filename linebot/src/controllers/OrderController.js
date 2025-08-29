@@ -22,6 +22,7 @@ class OrderController {
     }
 
     async createPreview(orcamento) {
+        
         const resumo = orcamento.items.map((item, index) => 
             `${index + 1}. ${item.quantity}x ${item.product.name} - R$ ${((item.product.price * item.quantity)/100).toFixed(2)}`
         );

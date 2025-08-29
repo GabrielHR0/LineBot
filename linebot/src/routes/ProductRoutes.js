@@ -33,6 +33,21 @@ router.get('/allSalableActive', async (req, res) => {
     res.status(200).json(products);
 });
 
+router.get('/all', async (req, res) => {
+    const products = await Product.getAll();
+    res.status(200).json(products);
+});
+
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    const product = await Product.getById(id);
+    if (!product) {
+        return res.status(404).json("Produto não encontrado");
+    }
+    res.status(200).json(product);
+});
+
+
 
 module.exports = router;
 

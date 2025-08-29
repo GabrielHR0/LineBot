@@ -5,8 +5,8 @@ const SubProduct = require('../controllers/SubProductController');
 const Product = require('../controllers/ProductController');
 
 router.post('/new', async (req,res) =>{
-    const {productId, data} = req.body;
-    const product = await Product.getById(productId);
+    const {data} = req.body;
+    const product = await Product.getById(data.product);
     const subProduct = await SubProduct.factory(product, data);
     console.log("Sub: ", subProduct);
     await Product.addSubProduct(data.parentProduct, subProduct);

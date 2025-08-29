@@ -2,19 +2,30 @@ const Group = require('../models/Group')
 
 class GroupController {
 
-    async create(name, description = ""){
+    async create(name, description = "", key){
         return await Group.create({
             name,
-            description
+            description,
+            key
         })
     }
 
-    async pushSubGrup(_id, subGroupId){
-        return await Group.updateOne(
-            { _id },
-            { $addToSet: { subGroups: subGroupId } }
-        )
+    async getAll(){
+        return await Group.find();
     }
+
+    async deleteById(_id){
+        return await Group.deleteOne({ _id });
+    }
+
+    async getById(_id){
+        return await Group.findOne({ _id });
+    }
+
+    async edit(_id, data) {
+        return await Group.findOneAndUpdate({ _id }, data, { new: true });
+    }
+
 }
 
 module.exports = new GroupController();

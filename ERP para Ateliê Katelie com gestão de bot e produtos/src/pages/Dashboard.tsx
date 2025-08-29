@@ -14,7 +14,6 @@ import {
   RefreshCw,
   PowerOff,
 } from 'lucide-react'
-import { lumi } from '../lib/lumi'
 import { whatsappService } from '../service/whatsappService'
 
 interface DashboardStats {

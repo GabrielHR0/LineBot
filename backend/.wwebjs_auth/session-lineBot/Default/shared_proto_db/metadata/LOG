@@ -1,2 +1,3 @@
-2025/08/22-19:53:08.211 1ad0 Creating DB C:\Users\gabri\OneDrive - IFRN\2025\LineBot0.1\backend\.wwebjs_auth\session-lineBot\Default\shared_proto_db\metadata since it was missing.
-2025/08/22-19:53:08.631 1ad0 Reusing MANIFEST C:\Users\gabri\OneDrive - IFRN\2025\LineBot0.1\backend\.wwebjs_auth\session-lineBot\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/08/28-13:50:28.845 3554 Reusing MANIFEST C:\Users\gabri\OneDrive - IFRN\2025\LineBot0.1\backend\.wwebjs_auth\session-lineBot\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/08/28-13:50:28.851 3554 Recovering log #3
+2025/08/28-13:50:28.852 3554 Reusing old log C:\Users\gabri\OneDrive - IFRN\2025\LineBot0.1\backend\.wwebjs_auth\session-lineBot\Default\shared_proto_db\metadata/000003.log 
