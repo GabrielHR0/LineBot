@@ -114,7 +114,12 @@ ProductSchema.methods.detail = async function() {
         });
     }
 
-    return msg.trim();
+    if (this.img){
+      const media = this.img;
+      return {text: msg.trim(), media: media}
+    }
+
+    return {text: msg.trim()};
 }
 
 module.exports = mongoose.model('Product', ProductSchema);

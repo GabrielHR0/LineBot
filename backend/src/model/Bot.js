@@ -122,6 +122,28 @@ class Bot {
 
             contact.support.currentFrame = new FrameInfo(frame);
 
+            if (contact.support.currentFrame.mediaRoute) {
+                try {
+                const result = await this.oracle.sendData(
+                    contact.support.currentFrame.mediaRoute,
+                    {}
+                );
+                if (result.isReturnData && result.data.media) {
+                    contact.support.currentFrame.setMedia(result.data.media);
+                    if (result.data.list) {
+                    contact.support.addReturnData({ list: result.data.list });
+                    }
+                }
+                } catch (error) {
+                console.error("Erro ao buscar mídia da rota INFO:", error);
+                contact.support.addCurrentMessage({
+                    text: "Erro ao carregar a mídia.",
+                    format: "ERROR",
+                });
+                return;
+                }
+            }
+
             const prepare = contact.support.currentFrame.prepare;
             console.log("submitData", contact.support.submitData);
 
@@ -144,15 +166,21 @@ class Bot {
                     contact.support.resetReturnData();
 
                     contact.support.addReturnData(r.data);
+
                     if(r.data?.problem){
                         jump = prepare.problem.jump;
                     }
-                }
-            };
 
-            text = contact.support.currentFrame.getResume(contact.support.returnData)
+                    if(r.data.media){
+                        contact.support.currentFrame.setMedia(r.data.media);
+                    }
+                };
+            }
 
-            contact.support.addCurrentMessage({ text: text, format: "TEXT" })
+            const resume = contact.support.currentFrame.getResume(contact.support.returnData)
+
+            contact.support.addCurrentMessage(resume);
+
             
             if (jump) {
                 await this.jumpResolver(contact, jump);

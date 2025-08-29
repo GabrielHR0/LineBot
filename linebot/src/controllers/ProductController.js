@@ -89,7 +89,13 @@ class ProductController {
     async detail(productid){
         const product = await Product.findOne({ _id : productid });
         const detail = await product.detail();
-        return { "@detail":  detail };
+        const media = [{
+            type: "IMAGE",
+            mimeType: "image/jpg",
+            data: `${detail.media}`,
+            }]
+
+        return { "@detail":  detail.text, media: media};
     }
 
     async updatePrice(productid, newPrice) {

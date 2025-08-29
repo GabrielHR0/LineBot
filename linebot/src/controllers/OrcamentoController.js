@@ -57,6 +57,10 @@ class OrcamentoController {
         return products;
     }
 
+    async getOrcamento(_id){
+        return await Orcamento.findOne({ _id }).populate('items.product');
+    }
+
     async addItem(orcamentoId, item, quantity){
         const orcamento = await Orcamento.findOne({_id : orcamentoId});
         await orcamento.addItem(item.id, item.constructor.modelName, quantity);

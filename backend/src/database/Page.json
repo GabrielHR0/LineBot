@@ -899,6 +899,14 @@
           },
           "route": "/lineBot/detailProduct"
         },
+        "media": {
+            "acceptedTypes": [
+              "IMAGE",
+              "VIDEO",
+              "AUDIO",
+              "GIF"
+            ]
+          },
         "jump" : "option:/acaoKit2"
       },
       {

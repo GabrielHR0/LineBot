@@ -10,6 +10,10 @@ pnpm-debug.log*
 # Diretórios de build
 **/dist/
 **/build/
+**/.wwebjs_auth/
+**/.wwebjs_cache/
+backend/.wwebjs_auth/
+backend/.wwebjs_cache/
 
 # Arquivos de ambiente
 

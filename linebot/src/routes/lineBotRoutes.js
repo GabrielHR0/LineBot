@@ -306,15 +306,24 @@ router.put('/custom/removeSubProduct', async (req, res) => {
 router.put('/detailProduct', async (req, res) => {
     console.log("[ROTA] /detailProduct");
     const { contact } = req.body;
-    console.log("Contato:", contact);
     const suport = await Suport.getSuportByContact(contact.number);
-        console.log("Current Produtct:", suport.currentProduct);
+
     if (suport.currentProduct.productType === "CustomProduct") {
         const detail = await CustomProduct.detail(suport.currentProduct.product);
-        console.log("Detalhes do produto customizado:", detail);
         return res.send(detail);
-    }
+    } 
+
     const detail = await Product.detail(suport.currentProduct.product);
+
+    /*if (detail.media){
+        const imgBuffer = Buffer.from(detail.media.data, 'base64');
+        res.writeHead(200, {
+            'Content-Type': 'image/jpeg',
+            'Content-Length': imgBuffer.length
+            });
+        return res.end(imgBuffer);
+    }*/
+
     console.log("Detalhes do produto comum:", detail);
     res.send(detail);
 });
@@ -338,8 +347,8 @@ router.put('/previewOrder', async (req, res) => {
     console.log("[ROTA] /previewOrder");
     const { contact } = req.body;
     const suport = await Suport.getSuportByContact(contact.number);
-    const orcamento = await Suport.getCurrentOrcamento(suport);
-    console.log('Items orçamento:', orcamento.items);
+    const orcamento = await Orcamento.getOrcamento(suport.currentOrcamento);
+    console.log('Items orçamento:', orcamento);
     const orderPreview = await Order.createPreview(orcamento);
     res.send({"@resumoPedido": orderPreview});
 });

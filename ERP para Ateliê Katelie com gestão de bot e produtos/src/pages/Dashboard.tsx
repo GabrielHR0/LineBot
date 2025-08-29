@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
   })
   const [error, setError] = useState<string | null>(null)
 
-  const statusIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const statusIntervalRef = useRef<number | null>(null)
   const lastStatusRef = useRef<string>('')
   const checkCountRef = useRef(0)
 
@@ -163,13 +163,14 @@ const Dashboard: React.FC = () => {
       lastStatusRef.current = currentStatus
     }
     
-    setWhatsappStatus(prev => ({
-      ...prev,
-      connected: status.connected,
-      loading: false,
-      lastChecked: new Date().toLocaleTimeString(),
-      error: status.error
-    }))
+  setWhatsappStatus(prev => ({
+    ...prev,
+    connected: status.connected,
+    loading: false,
+    lastChecked: new Date().toLocaleTimeString(),
+    error: status.error ?? undefined
+  }))
+
     
   } catch (error) {
     // ✅ REDUZIDO: Só loga erros a cada 5 tentativas
@@ -192,10 +193,8 @@ const iniciarVerificacaoPeriodica = () => {
   
   // ✅ AUMENTADO: Verifica a cada 30 segundos em vez de 10
   statusIntervalRef.current = setInterval(() => {
-    if (!whatsappStatus.loading) {
-      verificarStatusWhatsApp()
-    }
-  }, 30000) // 30 segundos
+    verificarStatusWhatsApp()
+  }, 30000)
 }
 
   const conectarWhatsApp = async () => {
@@ -282,7 +281,7 @@ const iniciarVerificacaoPeriodica = () => {
     }
   }
 
-  const desconectarCompletamente = async () => {
+  /*const desconectarCompletamente = async () => {
     try {
       setWhatsappStatus(prev => ({ 
         ...prev, 
@@ -317,6 +316,7 @@ const iniciarVerificacaoPeriodica = () => {
       }))
     }
   }
+    */
 
   const forcarAtualizacaoStatus = async () => {
     checkCountRef.current = 0;

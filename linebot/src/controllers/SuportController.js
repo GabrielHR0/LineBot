@@ -90,7 +90,6 @@ class SuportController {
   async getCurrentOrcamento(suport){
     await suport.populate({
       path: 'currentOrcamento',
-      model: 'Orcamento',
       populate: {
         path: 'items.product',
       }

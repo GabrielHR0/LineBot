@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Client, LocalAuth } = require("whatsapp-web.js");
+const { Client, LocalAuth, MessageMedia} = require("whatsapp-web.js");
 const QRCode = require("qrcode");
 const Bot = require("../model/Bot");
 const Oracle = require("../model/Oracle");
@@ -385,12 +385,12 @@ function start(client) {
     
     if (!onHoldContacts.isContact(message.from) && !message.from.includes("@g.us") &&
         [
-          "558496531316@c.us",
-          "558498332858@c.us",
           "558487839972@c.us",
+          /*"558496531316@c.us",
+          "558498332858@c.us",
           "558498079359@c.us",
           "558499008989@c.us",
-          "558496345257@c.us"
+          "558496345257@c.us"*/
         ].includes(message.from)
   ) {
       try {
@@ -409,13 +409,44 @@ function start(client) {
           await bot.receive(contact, text);
 
           let pendingToDelivery = contact.getPendingToDelivery();
-          for (const msg of pendingToDelivery) {
-            await client.sendMessage(from, msg.text);
-            console.log(`📤 Mensagem enviada para ${from}: ${msg.text}`);
+
+           const mimeExtensionMap = {
+            'image/jpeg': 'jpg',
+            'image/png': 'png',
+            'audio/ogg': 'ogg',    
+            'audio/mpeg': 'mp3',
+            'audio/wav': 'wav',
+            'video/mp4': 'mp4',
+          };
+
+          for (const element of pendingToDelivery) {
+            if (element.text){
+              await client.sendMessage(from, element.text);
+            }
+            console.log(`📤 Mensagem enviada para ${from}: ${element.text}`);
+
+            if (element.media) {
+              for (const media of element.media) {
+                const extension = mimeExtensionMap[media.mimeType] || 'bin';
+                const fileName = `file.${extension}`;
+                const messageMedia = new MessageMedia(media.mimeType, media.data, fileName);
+          
+                // Configura as opções de envio
+                const options = {};
+                if (media.mimeType === 'video/mp4' && media.sendAsGif) {
+                  options.sendVideoAsGif = true;
+                }
+                // Se for áudio e estiver em OGG, envia como voice note
+                if (media.mimeType === 'audio/ogg') {
+                  options.sendAudioAsVoice = true;
+                }
+                await client.sendMessage(from, messageMedia, options);
+              }
+            }
           }
-        } else {
-          console.log("⚠️ Bot não inicializado, ignorando mensagem");
-        }
+          } else {
+            console.log("⚠️ Bot não inicializado, ignorando mensagem");
+          }
       } catch (error) {
         console.error("Erro ao processar mensagem:", error);
       }

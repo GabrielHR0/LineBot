@@ -6,7 +6,8 @@ class FrameInfo {
         this.text = frame.text;
         this.exit = frame.exit || false;
         this.jump = frame.jump ?? null;
-
+        this.mediaRoute = frame.media?.route || null;
+        this.acceptedTypes = frame.media?.acceptedTypes || [];
     }
 
     parserText(data) {
@@ -49,7 +50,11 @@ class FrameInfo {
     getResume(data) {
         console.log("FrameInfo.getResume");
         let text = this.parserText(data);
-        return text;
+        return { text, media: this.media || [] };
+    }
+
+    setMedia(media) {
+        this.media = media;
     }
 }
 
