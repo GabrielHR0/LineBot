@@ -10,13 +10,15 @@ pnpm-debug.log*
 # Diretórios de build
 **/dist/
 **/build/
+
+# WhatsApp Web.js (auth e cache)
 **/.wwebjs_auth/
 **/.wwebjs_cache/
-backend/.wwebjs_auth/
-backend/.wwebjs_cache/
+backend/tokens/
 
 # Arquivos de ambiente
-
+.env
+.env.*
 
 # Cache e temporários
 .cache/
@@ -30,8 +32,3 @@ Thumbs.db
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
-
-
-node_modules/
-backend/.wwebjs_auth/
-backend/tokens/
