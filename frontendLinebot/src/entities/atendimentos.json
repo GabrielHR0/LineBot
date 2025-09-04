@@ -1,0 +1,72 @@
+
+{
+  "name": "atendimentos",
+  "options": {
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["clienteNome", "clienteTelefone", "status", "criadoEm"],
+        "properties": {
+          "clienteNome": {
+            "bsonType": "string",
+            "description": "Nome do cliente"
+          },
+          "clienteTelefone": {
+            "bsonType": "string",
+            "description": "Telefone do cliente"
+          },
+          "status": {
+            "bsonType": "string",
+            "enum": ["aguardando", "em_andamento", "aguardando_humano", "finalizado", "cancelado"],
+            "description": "Status do atendimento"
+          },
+          "mensagens": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "remetente": {
+                  "bsonType": "string",
+                  "enum": ["cliente", "bot", "atendente"]
+                },
+                "mensagem": {
+                  "bsonType": "string"
+                },
+                "timestamp": {
+                  "bsonType": "string",
+                  "title": "datetime"
+                }
+              }
+            },
+            "description": "Histórico de mensagens"
+          },
+          "produtoInteresse": {
+            "bsonType": "string",
+            "description": "Produto de interesse do cliente"
+          },
+          "observacoes": {
+            "bsonType": "string",
+            "description": "Observações do atendimento"
+          },
+          "atendenteId": {
+            "bsonType": "string",
+            "description": "ID do atendente responsável"
+          },
+          "criadoEm": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Data de criação do atendimento"
+          },
+          "atualizadoEm": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Data da última atualização"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validationLevel": "moderate",
+    "validationAction": "warn"
+  }
+}

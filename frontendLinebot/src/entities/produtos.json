@@ -1,0 +1,103 @@
+
+{
+  "name": "produtos",
+  "options": {
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["nome", "categoria", "preco", "ativo", "tempoProducao", "criadoEm"],
+        "properties": {
+          "nome": {
+            "bsonType": "string",
+            "description": "Nome do produto"
+          },
+          "descricao": {
+            "bsonType": "string",
+            "description": "Descrição detalhada do produto"
+          },
+          "categoria": {
+            "bsonType": "string",
+            "enum": ["kit_enxoval", "item_enxoval", "bijuteria", "decoracao", "vestuario", "acessorios", "personalizado"],
+            "description": "Categoria do produto"
+          },
+          "preco": {
+            "bsonType": "number",
+            "minimum": 0,
+            "description": "Preço base do produto (para encomenda)"
+          },
+          "ativo": {
+            "bsonType": "bool",
+            "description": "Se o produto está ativo para encomendas"
+          },
+          "imagem": {
+            "bsonType": "string",
+            "description": "URL da imagem do produto"
+          },
+          "subprodutos": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "produtoId": {
+                  "bsonType": "string",
+                  "description": "ID do produto que compõe este kit"
+                },
+                "quantidade": {
+                  "bsonType": "int",
+                  "minimum": 1,
+                  "description": "Quantidade deste item no kit"
+                },
+                "opcional": {
+                  "bsonType": "bool",
+                  "description": "Se este item é opcional no kit"
+                },
+                "personalizacao": {
+                  "bsonType": "string",
+                  "description": "Instruções de personalização para este item"
+                }
+              }
+            },
+            "description": "Lista de produtos que compõem este kit"
+          },
+          "tempoProducao": {
+            "bsonType": "int",
+            "minimum": 1,
+            "description": "Tempo de produção em dias para encomenda"
+          },
+          "tipoKit": {
+            "bsonType": "string",
+            "enum": ["bebe_menino", "bebe_menina", "bebe_unissex", "casal", "personalizado"],
+            "description": "Tipo específico do kit de enxoval"
+          },
+          "tamanhos": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "string"
+            },
+            "description": "Tamanhos disponíveis (RN, P, M, G, etc.)"
+          },
+          "cores": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "string"
+            },
+            "description": "Cores disponíveis para o produto"
+          },
+          "criadoEm": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Data de criação do produto"
+          },
+          "atualizadoEm": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Data da última atualização"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validationLevel": "moderate",
+    "validationAction": "warn"
+  }
+}

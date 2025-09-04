@@ -1,0 +1,93 @@
+
+{
+  "name": "pedidos",
+  "options": {
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["clienteNome", "clienteTelefone", "itens", "valorTotal", "status", "criadoEm"],
+        "properties": {
+          "numeroPedido": {
+            "bsonType": "string",
+            "description": "Número único do pedido"
+          },
+          "clienteNome": {
+            "bsonType": "string",
+            "description": "Nome do cliente"
+          },
+          "clienteTelefone": {
+            "bsonType": "string",
+            "description": "Telefone do cliente"
+          },
+          "clienteEndereco": {
+            "bsonType": "object",
+            "properties": {
+              "rua": {"bsonType": "string"},
+              "numero": {"bsonType": "string"},
+              "bairro": {"bsonType": "string"},
+              "cidade": {"bsonType": "string"},
+              "cep": {"bsonType": "string"}
+            },
+            "description": "Endereço de entrega"
+          },
+          "itens": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "properties": {
+                "produtoId": {"bsonType": "string"},
+                "produtoNome": {"bsonType": "string"},
+                "quantidade": {"bsonType": "int", "minimum": 1},
+                "precoUnitario": {"bsonType": "number", "minimum": 0},
+                "subtotal": {"bsonType": "number", "minimum": 0}
+              }
+            },
+            "description": "Itens do pedido"
+          },
+          "valorTotal": {
+            "bsonType": "number",
+            "minimum": 0,
+            "description": "Valor total do pedido"
+          },
+          "status": {
+            "bsonType": "string",
+            "enum": ["pendente", "confirmado", "producao", "pronto", "enviado", "entregue", "cancelado"],
+            "description": "Status do pedido"
+          },
+          "formaPagamento": {
+            "bsonType": "string",
+            "enum": ["dinheiro", "cartao", "pix", "transferencia"],
+            "description": "Forma de pagamento"
+          },
+          "statusPagamento": {
+            "bsonType": "string",
+            "enum": ["pendente", "pago", "cancelado"],
+            "description": "Status do pagamento"
+          },
+          "dataEntregaPrevista": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Data prevista para entrega"
+          },
+          "observacoes": {
+            "bsonType": "string",
+            "description": "Observações do pedido"
+          },
+          "criadoEm": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Data de criação do pedido"
+          },
+          "atualizadoEm": {
+            "bsonType": "string",
+            "title": "datetime",
+            "description": "Data da última atualização"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validationLevel": "moderate",
+    "validationAction": "warn"
+  }
+}

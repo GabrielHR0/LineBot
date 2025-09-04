@@ -1,0 +1,978 @@
+[{
+    "id": "lineBot",
+    "_key": "lineBot",
+    "intro": {
+        "type": "INTRO",
+        "text": "Olá! Seja muito bem-vindo ao atendimento automático do Kateliê.\n",
+        "jump": "option:/start"
+      },
+      "options": [
+      {
+        "id": "/start",
+        "type": "OPTION",
+        "text": "Gostaria de iniciar um atendimento conosco?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Sim, vamos lá!\n",
+            "comments": "inicializa o atendimento",
+            "onSelect": {
+              "jump": "option:/main"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Não por agora, obrigado\n",
+            "comments": "Finaliza o atendimento",
+            "onSelect": {
+              "jump": "info:/exit"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Como funciona?\n",
+            "comments": "Ver tutorial do bot",
+            "onSelect": {
+              "jump": "info:/tutorial"
+            }
+          }
+        ],
+        "prepare": {
+          "route": "/lineBot/initSuport"
+        }
+      },
+      {
+        "id": "/start2",
+        "type": "OPTION",
+        "text": "Gostaria de iniciar um atendimento conosco?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Sim, vamos lá!\n",
+            "comments": "inicializa o atendimento",
+            "onSelect": {
+              "jump": "option:/main"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Não por agora, obrigado\n",
+            "comments": "Finaliza o atendimento",
+            "onSelect": {
+              "jump": "info:/exit"
+            }
+          }
+        ],
+        "prepare": {
+          "route": "/lineBot/initSuport"
+        }
+      },
+      {
+        "id": "/main",
+        "type": "OPTION",
+        "text": "Escolha uma das opções abaixo para começarmos:\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Montar um kit\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver todos os produtos\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/produtos"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Ver último orçamento\n",
+            "comments": "Consultar seu último orçamento",
+            "onSelect": {
+              "jump": "info:/ultimoOrcamento"
+            }
+          },
+          {
+            "id": "4",
+            "text": "Acompanhar pedido\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/rastreamento"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/main2",
+        "type": "OPTION",
+        "text": "Escolha outra opção para começarmos:\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Montar um kit personalizável\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver todos os produtos\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/produtos"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Acompanhar pedido\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/rastreamento"
+            }
+          },
+          {
+            "id": "4",
+            "text": "Encerrar atendimento\n",
+            "comments": "Finaliza o atendimento",
+            "onSelect": {
+              "jump": "info:/exit"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/categoriaProduto",
+        "type": "OPTION",
+        "text": "Escolha outra opção para começarmos:\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Ver kits personalizáveis\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver Produtos Individuais\n",
+            "comments": "Listar todos os produtos disponíveis",
+            "onSelect": {
+              "jump": "option:/produtos"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar\n",
+            "comments": "Finaliza o atendimento",
+            "onSelect": {
+              "jump": "option:/posOrcamento"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/posOrcamento",
+        "type": "OPTION",
+        "text": "O que deseja fazer agora?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Realizar pedido\n",
+            "comments": "Avançar para a confirmação do pedido",
+            "onSelect": {
+              "jump": "info:/verPedido"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Adicionar mais produtos\n",
+            "comments": "Voltar para a seleção de produtos",
+            "onSelect": {
+              "jump": "option:/produtos"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Remover produtos\n",
+            "comments": "Voltar para a seleção de produtos",
+            "onSelect": {
+              "jump": "option:/removerDoOrcamento"
+            }
+          },
+          {
+            "id": "4",
+            "text": "Salvar para depois e encerrar atendimento\n",
+            "comments": "Salvar orçamento para o futuro",
+            "onSelect": {
+              "jump": "info:/salvarOrcamento"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/removerDoOrcamento",
+        "type": "OPTION",
+        "text": "Selecione um produto para ser removido do seu orçamento: \n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "info:/verOrcamento"
+          },
+          "route": "/lineBot/orcamento/getProducts",
+          "subRoute": "/lineBot/orcamento/removeProduct"
+        }
+      },
+      {
+      "id": "/confirmacaoPedido",
+      "type": "OPTION",
+      "text": "Você está prestes a confirmar o pedido com os produtos selecionados. Deseja prosseguir?\n\n",
+      "list": [
+        {
+          "id": "1",
+          "text": "Sim, confirmar pedido\n",
+          "comments": "Confirma o pedido atual",
+          "onSelect": {
+            "jump": "option:/posConfirmacaoPedido"
+          },
+          "route": "/lineBot/makeOrder"
+        },
+        {
+          "id": "2",
+          "text": "Não, voltar para o orçamento\n",
+          "comments": "Retorna à tela anterior para revisar",
+          "onSelect": {
+            "jump": "option:/posOrcamento"
+          }
+        }
+      ]
+    },
+      {
+        "id": "/posConfirmacaoPedido",
+        "type": "OPTION",
+        "text": "Pedido confirmado! 🎉\n\nAgora, como prefere finalizar os detalhes?\nEscolha uma das opções abaixo:\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Quero agendar uma visita\n",
+            "comments": "Agendamento presencial para fechar detalhes",
+            "onSelect": {
+              "jump": "form:/enviarData"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Prefiro falar com alguém da equipe",
+            "comments": "Encaminhar atendimento para equipe humana",
+            "onSelect": {
+              "jump": "info:/contatoEquipe"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/confirmarAgendamento",
+        "type": "OPTION",
+        "text": "Você deseja confirmar o agendamento?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Sim, confirmar\n",
+            "comments": "Segue para finalizar o atendimento",
+            "onSelect": {
+              "jump": "info:/finalAgendamento"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Não, quero falar com um atendente\n",
+            "comments": "Encaminhar atendimento para equipe humana",
+            "onSelect": {
+              "jump": "info:/contatoEquipe"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/decisaoOrcamento",
+        "type": "OPTION",
+        "text": "O que você deseja fazer com este orçamento?\n\nEscolha a opção que preferir:\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Realizar pedido com este orçamento\n",
+            "comments": "Cliente confirma que quer realizar o pedido",
+            "onSelect": {
+              "jump": "option:/confirmacaoPedido"
+            },
+            "route": "lineBot/editLastOrcamento"
+          },
+          {
+            "id": "2",
+            "text": "Começar um novo orçamento do zero\n",
+            "comments": "Voltar para o início da montagem do orçamento",
+            "onSelect": {
+              "jump": "option:/main"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Desistir da solicitação e sair.\n",
+            "comments": "Cliente deseja encerrar a conversa",
+            "onSelect": {
+              "jump": "info:/exit"
+            }
+          }
+        ]
+      },
+
+      {
+        "id": "/kits",
+        "type": "OPTION",
+        "text": "Escolha uma dentre as opções listadas abaixo.\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "option:/acaoKit"
+          },
+          "route": "/lineBot/getKits",
+          "subRoute": "/lineBot/selectProduct"
+        }
+      },
+      {
+        "id": "/produtos",
+        "type": "OPTION",
+        "text": "Escolha uma dentre as opções listadas abaixo.\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "option:/acaoProduto"
+          },
+          "route": "/lineBot/individualProducts",
+          "subRoute": "/lineBot/selectProduct"
+        }
+      },
+      {
+        "id": "/acaoKit",
+        "type": "OPTION",
+        "text": "O que deseja fazer com este Kit?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Adicionar ao orçamento\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/comprarProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Editar Kit\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/editarProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Ver Detalhes\n",
+            "comments": "Consultar status de pedidos",
+
+            "onSelect": {
+              "jump": "info:/detalhesProduto"
+            }
+          },
+          {
+            "id": "4",
+            "text": "Voltar\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/acaoProduto",
+        "type": "OPTION",
+        "text": "O que deseja fazer com este Produto?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Adicionar ao orçamento\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/comprarProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Ver Detalhes\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "info:/detalhesProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/produtos"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/acaoKit2",
+        "type": "OPTION",
+        "text": "O que deseja fazer com este produto?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Comprar Produto\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/comprarProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Editar Produto\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/editarProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar\n",
+            "comments": "Consultar status de pedidos",
+            "onSelect": {
+              "jump": "option:/kits"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/comprarProduto",
+        "type": "OPTION",
+        "text": "Produto adicionado ao seu orçamento! O que você gostaria de fazer agora?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Realizar pedido\n",
+            "comments": "Segue para criar um pedido.",
+            "onSelect": {
+              "jump": "info:/verPedido"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Continuar comprando\n",
+            "comments": "Ver outros produtos disponíveis.",
+            "onSelect": {
+              "jump": "option:/produtos"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Ver orcamento\n",
+            "comments": "Prosseguir para o orcamento.",
+            "onSelect": {
+              "jump": "info:/verOrcamento"
+            }
+          }
+        ],
+        "prepare": {
+          "route": "/lineBot/addToOrcamento"
+        }
+      },
+      {
+        "id": "/editarProduto",
+        "type": "OPTION",
+        "text": "Você está editando os itens deste produto. O que deseja fazer?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Adicionar itens ao produto\n",
+            "comments": "Inclua mais itens para personalizá-lo.",
+            "onSelect": {
+              "jump": "option:/adicionarAoProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Remover itens do produto\n",
+            "comments": "Exclua itens que não deseja manter.",
+            "onSelect": {
+              "jump": "option:/removerDoProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Substituir um item\n",
+            "comments": "Troque um item atual por outro equivalente.",
+            "onSelect": {
+              "jump": "option:/trocarComponente"
+            }
+          }
+        ],
+        "prepare": {
+          "route": "/lineBot/custom/init"
+        }
+      },
+      {
+        "id": "/adicionarAoProduto",
+        "type": "OPTION",
+        "text": "Você pode adicionar novos itens a este produto. Vamos ver o que está disponível!\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "option:/acaoKit"
+          },
+          "route": "/lineBot/custom/allSubProducts",
+          "subRoute": "/lineBot/custom/addSubProduct",
+            "problem" : {
+            "jump": "option:/adicionarAoProdutoErro"
+          }
+        }
+      },
+      {
+        "id": "/removerDoProduto",
+        "type": "OPTION",
+        "text": "Você pode remover itens deste produto. Vamos ver o que está disponível!\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "option:/acaoKit"
+          },
+          "route": "/lineBot/custom/getRemovableProducts",
+          "subRoute": "/lineBot/custom/removeSubProduct",
+            "problem" : {
+            "jump": "option:/removerDoProdutoErro"
+          }
+        }
+      },
+      {
+        "id": "/trocarComponente",
+        "type": "OPTION",
+        "text": "Você pode trocar os itens deste produto. Escolha o qual item você deseja trocar!\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "option:/produtosSubtituiveis"
+          },
+          "problem" : {
+            "jump": "option:/removerDoProdutoErro"
+          },
+          "route": "/lineBot/getSubProducts",
+          "subRoute": "/lineBot/custom/removeSubProduct"
+        }
+      },
+      {
+        "id": "/produtosSubtituiveis",
+        "type": "OPTION",
+        "text": "O produto selecionado pode ser substituido por esses:\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "option:/acaoKit"
+          },
+          "route": "/lineBot/custom/getExchangeableProducts",
+          "subRoute": "/lineBot/custom/addSubProduct",
+            "problem" : {
+              "jump": "option:/produtosSubtituiveisErro"
+          }
+        }
+      },
+      {
+        "id": "/selecionarHorario",
+        "type": "OPTION",
+        "text": "Esses são os horarios disponíveis:\n\n",
+        "list": [],
+        "prepare": {
+          "content": {
+            "id": "id"
+          },
+          "onSelect": {
+            "jump": "info:/resumoAgendamento"
+          },
+          "route": "/lineBot/availableTimeSlots",
+          "subRoute": "/lineBot/selectTime"
+        }
+      },
+      {
+        "id": "/adicionarAoProdutoErro",
+        "type": "OPTION",
+        "text": "Não foi possível buscar itens para adicionar a este produto no momento. O que deseja fazer?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Tentar novamente adicionar itens\n",
+            "comments": "Refaz a busca para incluir novos itens.",
+            "onSelect": {
+              "jump": "option:/adicionarAoProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Remover itens do produto",
+            "comments": "Exclui itens que não deseja manter.",
+            "onSelect": {
+              "jump": "option:/removerDoProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar",
+            "comments": "Retorna para as ações do produto.",
+            "onSelect": {
+              "jump": "option:/acaoKit"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/removerDoProdutoErro",
+        "type": "OPTION",
+        "text": "Não foi possível buscar itens para remover deste produto no momento. O que deseja fazer?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Tentar novamente remover itens",
+            "comments": "Refaz a busca para remover itens.",
+            "onSelect": {
+              "jump": "option:/removerDoProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Adicionar itens ao produto",
+            "comments": "Inclui mais itens para personalizá-lo.",
+            "onSelect": {
+              "jump": "option:/adicionarAoProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar",
+            "comments": "Retorna para as ações do produto.",
+            "onSelect": {
+              "jump": "option:/acaoKit"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/trocarComponenteErro",
+        "type": "OPTION",
+        "text": "Não foi possível buscar itens para substituição no momento. O que deseja fazer?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Tentar novamente substituir item",
+            "comments": "Refaz a busca para trocar um item por outro.",
+            "onSelect": {
+              "jump": "option:/trocarComponente"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Adicionar itens ao produto",
+            "comments": "Inclui mais itens para personalizá-lo.",
+            "onSelect": {
+              "jump": "option:/adicionarAoProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar",
+            "comments": "Retorna para as ações do produto.",
+            "onSelect": {
+              "jump": "option:/acaoKit"
+            }
+          }
+        ]
+      },
+      {
+        "id": "/produtosSubtituiveisErro",
+        "type": "OPTION",
+        "text": "Não foram encontrados produtos substituíveis para este item. O que deseja fazer?\n\n",
+        "list": [
+          {
+            "id": "1",
+            "text": "Adicionar itens ao produto",
+            "comments": "Inclui mais itens para personalizá-lo.",
+            "onSelect": {
+              "jump": "option:/adicionarAoProduto"
+            }
+          },
+          {
+            "id": "2",
+            "text": "Remover itens do produto",
+            "comments": "Exclui itens que não deseja manter.",
+            "onSelect": {
+              "jump": "option:/removerDoProduto"
+            }
+          },
+          {
+            "id": "3",
+            "text": "Voltar",
+            "comments": "Retorna para as ações do produto.",
+            "onSelect": {
+              "jump": "option:/acaoKit"
+            }
+          }
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "id": "/enviarData",
+        "text": "Informe uma data para o agendamento (até 30 dias a partir de hoje), no formato DD/MM/AAAA. Ex: 15/08/2025.\n\n",
+        "type": "FORM",
+        "list": [
+          {
+            "id": "date",
+            "text": "Data: \n",
+            "format": "text",
+            "validates": [
+              {
+              "route": "/lineBot/validateDate",
+              "problem": [
+                {
+                  "type": "INVALID_DATE_FORMAT",
+                  "text": "A data informada não está no formato DD/MM/AAAA.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                },
+                          {
+                  "type": "INVALID_DATE",
+                  "text": "A data informada não é válida.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                },
+                {
+                  "type": "OUT_OF_RANGE",
+                  "text": "A data deve estar dentro de 30 dias a partir de hoje.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                },
+                {
+                  "type": "PAST_DATE",
+                  "text": "A data não pode ser uma data passada.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                },
+                {
+                  "type": "INACTIVE_DAY",
+                  "text": "O dia selecionado não aceita agendamentos.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                },
+                {
+                  "type": "FULL_DAY",
+                  "text": "O dia selecionado está completamente agendado.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                },
+                {
+                  "type": "DAY_OFF",
+                  "text": "O dia selecionado é um dia de folga.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                },
+                {
+                  "type": "NO_APPOINTMENTS",
+                  "text": "Não há horários disponíveis para o dia selecionado.",
+                  "action": {
+                    "type": "RELAUNCH",
+                    "times": 3
+                  }
+                }
+              ]
+            }]
+          }
+        ],
+        "submit": {
+          "jump": "option:/selecionarHorario"
+        }
+    }
+    ],
+    "info": [
+      {
+        "text": "Agradecemos pelo seu contato! Estamos à disposição para quaisquer dúvidas.\n\nSiga-nos em: @katelieenxovais",
+        "id": "/exit",
+        "type": "INFO",
+        "exit": true,
+        "prepare": {
+          "listAtt": [],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/exitSuport"
+        }
+      },
+      {
+        "text": "Agendamento confirmado! Estamos ansiosos para atendê-lo!",
+        "id": "/finalAgendamento",
+        "type": "INFO",
+        "jump" : "info:/exit"
+      },
+      {
+        "text": "Sua solicitação para atendimento foi encaminhada. Em breve, um membro da equipe assumirá a conversa. Solicitamos que aguarde até o início do atendimento.",
+        "id": "/contatoEquipe",
+        "type": "INFO",
+        "exit": true,
+        "prepare": {
+          "listAtt": [],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/holdContact"
+        }
+      },
+      {
+        "id": "/salvarOrcamento",
+        "text": "Seu orçamento foi salvo com sucesso.",
+        "type": "INFO",
+        "exit": false,
+          "prepare": {
+          "listAtt": [],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/saveOrcamento"
+        },
+        "jump" : "info:/exit"
+      },
+      {
+        "id": "/detalhesProduto",
+        "type": "INFO",
+        "text": "Confira os detalhes do produto selecionado:\n\n@detail",
+        "exit": false,
+        "prepare": {
+          "listAtt": [],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/detailProduct"
+        },
+        "media": {
+            "acceptedTypes": [
+              "IMAGE",
+              "VIDEO",
+              "AUDIO",
+              "GIF"
+            ]
+          },
+        "jump" : "option:/acaoKit2"
+      },
+      {
+        "id": "/verOrcamento",
+        "type": "INFO",
+        "text": "Aqui está o resumo do seu orçamento:\n\n@resumo",
+        "prepare": {
+          "listAtt": [],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/resumoOrcamento"
+        },
+        "jump": "option:/posOrcamento"
+      },
+      {
+        "id": "/verPedido",
+        "type": "INFO",
+        "text": "Confira os detalhes do seu pedido antes de confirmar:\n\n@resumoPedido",
+        "prepare": {
+          "listAtt": [],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/previewOrder"
+        },
+        "jump": "option:/confirmacaoPedido"
+      },
+      {
+        "id": "/ultimoOrcamento",
+        "type": "INFO",
+        "text": "Aqui está o seu último orçamento registrado:\n@notification\n\n@resumo",
+        "prepare": {
+          "listAtt": [],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/ultimoOrcamento",
+          "problem" : {
+            "jump": "option:/main2"
+          }
+        },
+        "jump": "option:/decisaoOrcamento"
+      },
+      {
+        "id": "/resumoAgendamento",
+        "type": "INFO",
+        "text": "Esse é o resumo do seu agendamento:\n\n@resumeAppointment",
+        "prepare": {
+          "listAtt": [
+            "id",
+            "date"
+          ],
+          "content": {
+            "id": "id"
+          },
+          "route": "/lineBot/resumeAppointment"
+        },
+        "jump": "option:/confirmarAgendamento"
+      },
+      {
+        "id": "/tutorial",
+        "type": "INFO",
+        "text": "Este atendimento foi criado para facilitar a criação do seu orçamento na Kateliê Enxovais!\n\nAqui você pode:\n\n• 📝 Simular combinações de produtos\n• 💰 Ver valores instantaneamente\n• 🛒 Revisar orçamentos anteriores\n\nComece escolhendo os itens que deseja incluir no seu enxoval. O sistema mostrará automaticamente:\n\n🔹 Opções disponíveis\n🔹 Preços atualizados\n🔹 Validade do orçamento\n\nSe já tiver um orçamento em andamento, você pode retomá-lo a qualquer momento.\n\nPronto para começar?",
+        "jump": "option:/start2"
+      }
+    ]
+  }
+]
