@@ -38,9 +38,7 @@ router.put('/allProducts', async (req, res) => {
     console.log("[ROTA] /allProducts");
     try {
         const products = await Product.getsalableProducts();
-        console.log("Produtos saláveis:", products);
         const produtosFormatados = await LineBot.sendProductsWithoutQuantity(products);
-        console.log("Produtos formatados:", produtosFormatados);
         res.status(200).json(produtosFormatados);
     } catch (error) {
         console.error("[/allProducts] Erro:", error);
@@ -225,10 +223,10 @@ router.put('/custom/allSubProducts', async (req, res) => {
     const product = await Suport.getCurrentProduct(suport);
     const result = await CustomProduct.getSubproducts(product._id);
 
-    const formattedResult = await LineBot.sendProductsWithQuantity(result);
     if (result.problem){
-        res.send(result);
+        return res.send(result);
     }
+    const formattedResult = await LineBot.sendProductsWithQuantity(result);
     res.status(200).json(formattedResult);
 });
 
@@ -240,13 +238,19 @@ router.put('/getSubProducts', async (req, res) => {
         console.log("Produto ID:", id);
         const suport = await Suport.getSuportByContact(contact.number);
         if (suport.currentProduct.productType === "CustomProduct") {
-            const subProducts = await CustomProduct.getSubproducts(suport.currentProduct.product);
-            const formattedSubProducts = await LineBot.sendProductsWithQuantity(subProducts);
-            console.log("SubProducts:", subProducts);
+            const result = await CustomProduct.getSubproducts(suport.currentProduct.product);
+                if (result.problem){
+                    return res.send(result);
+                }
+            const formattedSubProducts = await LineBot.sendProductsWithQuantity(result);
+            console.log("SubProducts:", result);
             return res.send(formattedSubProducts);
         }
-        const subProducts = await Product.getSubProducts(suport.currentProduct.product);
-        const formattedSubProducts = await LineBot.sendProductsWithQuantity(subProducts);
+        const result = await Product.getSubProducts(suport.currentProduct.product);
+        if (result.problem){
+            return res.send(result);
+        }
+        const formattedSubProducts = await LineBot.sendProductsWithQuantity(result);
         res.status(200).json(formattedSubProducts);
     } catch (error) {
         console.error("[/getSubProducts] Erro:", error);
@@ -259,8 +263,11 @@ router.put('/custom/getExchangeableProducts', async (req, res) => {
     console.log("[ROTA] /custom/getExchangeableProducts");
     const { id } = req.body;
     console.log("Subproduto ID:", id);
-    const exchangeable = await SubProduct.getExchangeables(id);
-    const formattedExchangeable = await LineBot.sendProductsWithQuantity(exchangeable);
+    const result = await SubProduct.getExchangeables(id);
+    if (result.problem){
+        return res.send(result);
+    }
+    const formattedExchangeable = await LineBot.sendProductsWithQuantity(result);
     res.status(200).json(formattedExchangeable);
 });
 
@@ -270,8 +277,11 @@ router.put('/custom/getRemovableProducts', async (req, res) => {
     try {
         const { contact } = req.body;
         const suport = await Suport.getSuportByContact(contact.number);
-        const removables = await CustomProduct.getRemovableSubProducts(suport.currentProduct.product);
-        const formattedRemovables = await LineBot.sendProductsWithoutQuantity(removables);
+        const result = await CustomProduct.getRemovableSubProducts(suport.currentProduct.product);
+        if(result.problem){
+            return res.send(result);
+        }
+        const formattedRemovables = await LineBot.sendProductsWithoutQuantity(result);
         res.status(200).json(formattedRemovables);
     } catch (error) {
         console.error("[/custom/getRemovableProducts] Erro:", error);

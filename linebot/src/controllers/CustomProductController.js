@@ -66,7 +66,7 @@ class CustomProductController {
             model: 'SubProduct'
         });
         if(custom.subProducts.length === 0){
-            return {problem: true, error: "No subproducts found for this custom product."};
+            return {problem: "NoSubproducts", error: "No subproducts found for this custom product."};
         }
         return custom.subProducts.map( sp => {
             return {
@@ -85,7 +85,9 @@ class CustomProductController {
             match: { isEssential: false },
         })
 
-        console.log(removables);
+        if (removables.subProducts.length == 0){
+            return {problem: "NoSubproducts", error: "No removables products found for this custom product."};
+        }
         
         return removables.subProducts.map( sp => {
             return {

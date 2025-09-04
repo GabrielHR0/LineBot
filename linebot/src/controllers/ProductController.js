@@ -26,7 +26,7 @@ class ProductController {
     } 
 
     async getAll(){
-        return Product.find();
+        return Product.find().populate('subProducts.subProduct');
     }
 
     async getsalableProducts(){
@@ -64,6 +64,10 @@ class ProductController {
             path: 'subProducts.subProduct',
             model: 'SubProduct'
         })
+
+        if(product.subProducts.length == 0){
+            return {problem: "NoSubproducts", error: "No subproducts found for this product."}
+        }
 
         return product.subProducts.map( sp => {
             return {

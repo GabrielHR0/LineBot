@@ -20,6 +20,10 @@ class SubProductController {
                 _id: { $ne: subProduct._id }
             }
         )
+
+        if (exchangeables.length = 0 ){
+            return {problem: "NoSubproducts", error: "No exchangeables products found for this custom product."};
+        }
         return exchangeables.map(sp =>{
             return {
                 _id: sp._id,
